@@ -138,7 +138,7 @@ func (kv *Service) ListObjectStores() (*protos.AvailableObjectStoreConfigs, erro
 	mappings := &protos.AvailableObjectStoreConfigs{Mappings: []*protos.ObjectStoreConfig{}}
 	for _, objectStoreConfig := range kv.objectStoreConfigs {
 		mappings.Mappings = append(mappings.Mappings, objectStoreConfig)
-		logger.TraceLogger.Println("----;", time.Now().UnixMicro(),";GEN;LST_STORE;", objectStoreConfig.Bucket, ";", objectStoreConfig) 
+		logger.TraceLogger.Println("------------;", time.Now().UnixMicro(),";GEN;LST_STORE;", objectStoreConfig.Bucket, ";", objectStoreConfig) 
 	}
 	return mappings, nil
 }

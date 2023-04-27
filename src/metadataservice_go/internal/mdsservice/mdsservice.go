@@ -167,7 +167,7 @@ func (s *Service) List(ctx context.Context, objectListRequest *protos.ObjectList
 	logger.InfoLogger.Println("list objects")
 	s.metrics.IncrementListObject()
 	// LV TRACE
-	logger.TraceLogger.Println(s.GetClientConnAux(ctx).RemoteAddress, ";", time.Now().UnixMicro(),";PFX;PFX_LKP;", objectListRequest.Prefix)
+	logger.TraceLogger.Println(s.GetClientConnAux(ctx).RemoteAddress, ";", time.Now().UnixMicro(),";PFX;PFX_LKP;", objectListRequest.Prefix.Bucket, ";", objectListRequest.Prefix.Key)
 	return s.processor.List(objectListRequest)
 }
 
@@ -196,7 +196,7 @@ func (s *Service) Subscribe(ctx context.Context, subscription *protos.Subscripti
 func (s *Service) SubscribeStream(subscription *protos.SubscriptionStreamEvent,
 	stream protos.MetadataService_SubscribeStreamServer) error {
 	// LV TRACE
-	logger.TraceLogger.Println("----;", time.Now().UnixMicro(),";PUB;PUB_SST;----;", subscription.SubscriberID) 
+	logger.TraceLogger.Println("------------;", time.Now().UnixMicro(),";PUB;PUB_SST;--------;", subscription.SubscriberID) 
 	return s.processor.SubscribeStream(subscription, stream)
 }
 
@@ -269,7 +269,7 @@ func (s *Service) ListAux(ctx context.Context, objectListRequest *protos.ObjectL
 	logger.InfoLogger.Println("ListObjectsAux")
 	s.metrics.IncrementListObject()
 	// LV TRACE
-	logger.TraceLogger.Println(s.GetClientConnAux(ctx).RemoteAddress, ";", time.Now().UnixMicro(),";PFX;PFX_LKP_AUX;", objectListRequest.Prefix)
+	logger.TraceLogger.Println(s.GetClientConnAux(ctx).RemoteAddress, ";", time.Now().UnixMicro(),";PFX;PFX_LKP_AUX;", objectListRequest.Prefix.Bucket,";",  objectListRequest.Prefix.Key)
 	return s.processor.ListAux(objectListRequest)
 }
 
@@ -285,7 +285,7 @@ func (s *Service) SubscribeAux(ctx context.Context, subscription *protos.Subscri
 func (s *Service) SubscribeStreamAux(subscription *protos.SubscriptionStreamEvent,
 	stream protos.MetadataService_SubscribeStreamAuxServer) error {
 	// LV TRACE
-	logger.TraceLogger.Println("----;", time.Now().UnixMicro(),";PUB;PUB_SST_AUX;----;", subscription.SubscriberID) 	
+	logger.TraceLogger.Println("------------;", time.Now().UnixMicro(),";PUB;PUB_SST_AUX;--------;", subscription.SubscriberID) 	
 	return s.processor.SubscribeStreamAux(subscription, stream)
 }
 

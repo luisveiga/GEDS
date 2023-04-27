@@ -181,7 +181,7 @@ func (s *Service) SubscribeStreamAuxClient(subscription *protos.SubscriptionStre
 			logger.InfoLogger.Println("Object received from gateway as event payload in subscribestreamaux at MDS", object)
 			logger.InfoLogger.Println("Forwarding object received from gateway to client", subscription, stream, object)
 			// LV TRACE
-			logger.TraceLogger.Println("----;", time.Now().UnixMicro(),";PUB;PUB_PUB_AUX;", object.PublicationType, ";", object.Object.Id.Bucket, ";",object.Object.Id.Key, ";",object.Object.Info.Location, ";",object.Object.Info.Size, ";",object.Object.Info.SealedOffset, ";", subscription.SubscriberID)
+			logger.TraceLogger.Println("------------;", time.Now().UnixMicro(),";PUB;PUB_PUB_AUX;", object.PublicationType, ";", object.Object.Id.Bucket, ";",object.Object.Id.Key, ";",object.Object.Info.Location, ";",object.Object.Info.Size, ";",object.Object.Info.SealedOffset, ";", subscription.SubscriberID)
 
 			s.sendPublication(object, subscription.SubscriberID)
 			//s.matchPubSub(object)
@@ -257,7 +257,7 @@ func (s *Service) matchPubSub(publication *protos.SubscriptionStreamResponse) {
 		if _, ok := sentSubscriptions[subscriberID]; !ok {
 			logger.InfoLogger.Println("PUB-SUB Sending Publication", publication, subscriberID)
 			// LV TRACE
-			logger.TraceLogger.Println("----;", time.Now().UnixMicro(),";PUB;PUB_PUB;", publication.PublicationType, ";", publication.Object.Id.Bucket, ";",publication.Object.Id.Key, ";",publication.Object.Info.Location, ";",publication.Object.Info.Size, ";",publication.Object.Info.SealedOffset)
+			logger.TraceLogger.Println("------------;", time.Now().UnixMicro(),";PUB;PUB_PUB;", publication.PublicationType, ";", publication.Object.Id.Bucket, ";",publication.Object.Id.Key, ";",publication.Object.Info.Location, ";",publication.Object.Info.Size, ";",publication.Object.Info.SealedOffset)
 			s.sendPublication(publication, subscriberID)
 			sentSubscriptions[subscriberID] = true
 		}
