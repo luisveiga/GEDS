@@ -16,6 +16,11 @@ type Service struct {
 
 	bucketsLock *sync.RWMutex
 	buckets     map[string]*Bucket
+
+	// LV new definitions
+	gatewayConfigsLock *sync.RWMutex
+	gatewayConfigs     map[string]*protos.GatewayConfig
+	// LV end
 }
 
 type Object struct {
@@ -28,3 +33,5 @@ type Bucket struct {
 	objects     map[string]*Object
 	bucket      *protos.Bucket
 }
+
+

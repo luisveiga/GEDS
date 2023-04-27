@@ -88,6 +88,47 @@ git-pull:
 	@echo "Pulling from git main"
 	@git pull origin main
 
+
+### MDS LV -GATEWAYS
+## run-mds: run the MDS component server A
+rmda:
+	@echo "Running MDS A..."
+	@${GO_PATH} run ./cmd/rmda
+
+## run-mds: run the MDS component server B
+rmdb:
+	@echo "Running MDS B..."
+	@${GO_PATH} run ./cmd/rmdb
+
+## run-mds: run the MDS component server C
+rmdc:
+	@echo "Running MDS C..."
+	@${GO_PATH} run ./cmd/rmdc
+
+## run-mock-client: run the MockClient A
+mcka:
+	@echo "Running Mock-Client A..."
+	${GO_PATH}  run ./cmd/mcka
+
+
+## run-mock-client: run the MockClient B
+mckb:
+	@echo "Running Mock-Client B..."
+	@${GO_PATH} run ./cmd/mckb
+
+## run-mock-client: run the MockClient C
+mckc:
+	@echo "Running Mock-Client C..."
+	@${GO_PATH} run ./cmd/mckc
+
+## run-mock-client: run the MockClient that triggers pubsub events in loop
+mckpub:
+	@echo "Running Mock-Client PUB SUB..."
+	@${GO_PATH} run ./cmd/mckpub
+
+
+### MDS LV - END
+
 .PHONY: protos
 ## protos: generate the protos
 protos:
@@ -110,3 +151,5 @@ build-docker-images:
 push-docker-images:
 	@echo "Pushing Docker images ..."
 	@docker push ${DOCKER_REGISTRY}/geds-mds-go:${DOCKER_TAG_ENV}
+
+

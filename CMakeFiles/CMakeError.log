@@ -1,0 +1,803 @@
+Determining if the function res_servicename exists failed with the following output:
+Change Dir: /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_83089/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_83089.dir/build.make CMakeFiles/cmTC_83089.dir/build
+gmake[1]: Entering directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_83089.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=res_servicename -fPIE -o CMakeFiles/cmTC_83089.dir/CheckFunctionExists.c.o -c /usr/local/share/cmake-3.22/Modules/CheckFunctionExists.c
+Linking C executable cmTC_83089
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_83089.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=res_servicename -rdynamic CMakeFiles/cmTC_83089.dir/CheckFunctionExists.c.o -o cmTC_83089 
+/usr/bin/ld: CMakeFiles/cmTC_83089.dir/CheckFunctionExists.c.o: in function `main':
+CheckFunctionExists.c:(.text+0x14): undefined reference to `res_servicename'
+collect2: error: ld returned 1 exit status
+gmake[1]: *** [CMakeFiles/cmTC_83089.dir/build.make:99: cmTC_83089] Error 1
+gmake[1]: Leaving directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_83089/fast] Error 2
+
+
+
+Determining if the function res_servicename exists in the resolv failed with the following output:
+Change Dir: /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_5c2da/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_5c2da.dir/build.make CMakeFiles/cmTC_5c2da.dir/build
+gmake[1]: Entering directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_5c2da.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=res_servicename -fPIE -o CMakeFiles/cmTC_5c2da.dir/CheckFunctionExists.c.o -c /usr/local/share/cmake-3.22/Modules/CheckFunctionExists.c
+Linking C executable cmTC_5c2da
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5c2da.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=res_servicename CMakeFiles/cmTC_5c2da.dir/CheckFunctionExists.c.o -o cmTC_5c2da  -lresolv 
+/usr/bin/ld: CMakeFiles/cmTC_5c2da.dir/CheckFunctionExists.c.o: in function `main':
+CheckFunctionExists.c:(.text+0x14): undefined reference to `res_servicename'
+collect2: error: ld returned 1 exit status
+gmake[1]: *** [CMakeFiles/cmTC_5c2da.dir/build.make:99: cmTC_5c2da] Error 1
+gmake[1]: Leaving directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_5c2da/fast] Error 2
+
+
+
+Determining if files socket.h exist failed with the following output:
+Change Dir: /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_5e03d/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_5e03d.dir/build.make CMakeFiles/cmTC_5e03d.dir/build
+gmake[1]: Entering directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_5e03d.dir/HAVE_SOCKET_H.c.o
+/usr/bin/cc   -fPIE -o CMakeFiles/cmTC_5e03d.dir/HAVE_SOCKET_H.c.o -c /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CheckIncludeFiles/HAVE_SOCKET_H.c
+/home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CheckIncludeFiles/HAVE_SOCKET_H.c:2:10: fatal error: socket.h: No such file or directory
+    2 | #include <socket.h>
+      |          ^~~~~~~~~~
+compilation terminated.
+gmake[1]: *** [CMakeFiles/cmTC_5e03d.dir/build.make:78: CMakeFiles/cmTC_5e03d.dir/HAVE_SOCKET_H.c.o] Error 1
+gmake[1]: Leaving directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_5e03d/fast] Error 2
+
+
+Source:
+/* */
+#include <socket.h>
+
+
+int main(void){return 0;}
+
+Determining if files stropts.h exist failed with the following output:
+Change Dir: /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_e7d0f/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_e7d0f.dir/build.make CMakeFiles/cmTC_e7d0f.dir/build
+gmake[1]: Entering directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_e7d0f.dir/HAVE_STROPTS_H.c.o
+/usr/bin/cc   -fPIE -o CMakeFiles/cmTC_e7d0f.dir/HAVE_STROPTS_H.c.o -c /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CheckIncludeFiles/HAVE_STROPTS_H.c
+/home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CheckIncludeFiles/HAVE_STROPTS_H.c:2:10: fatal error: stropts.h: No such file or directory
+    2 | #include <stropts.h>
+      |          ^~~~~~~~~~~
+compilation terminated.
+gmake[1]: *** [CMakeFiles/cmTC_e7d0f.dir/build.make:78: CMakeFiles/cmTC_e7d0f.dir/HAVE_STROPTS_H.c.o] Error 1
+gmake[1]: Leaving directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_e7d0f/fast] Error 2
+
+
+Source:
+/* */
+#include <stropts.h>
+
+
+int main(void){return 0;}
+
+Determining if files winsock2.h;windows.h exist failed with the following output:
+Change Dir: /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_93cf0/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_93cf0.dir/build.make CMakeFiles/cmTC_93cf0.dir/build
+gmake[1]: Entering directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_93cf0.dir/HAVE_WINSOCK2_H.c.o
+/usr/bin/cc   -fPIE -o CMakeFiles/cmTC_93cf0.dir/HAVE_WINSOCK2_H.c.o -c /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CheckIncludeFiles/HAVE_WINSOCK2_H.c
+/home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CheckIncludeFiles/HAVE_WINSOCK2_H.c:2:10: fatal error: winsock2.h: No such file or directory
+    2 | #include <winsock2.h>
+      |          ^~~~~~~~~~~~
+compilation terminated.
+gmake[1]: *** [CMakeFiles/cmTC_93cf0.dir/build.make:78: CMakeFiles/cmTC_93cf0.dir/HAVE_WINSOCK2_H.c.o] Error 1
+gmake[1]: Leaving directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_93cf0/fast] Error 2
+
+
+Source:
+/* */
+#include <winsock2.h>
+#include <windows.h>
+
+
+int main(void){return 0;}
+
+Determining if files winsock2.h;ws2tcpip.h;windows.h exist failed with the following output:
+Change Dir: /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_eac98/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_eac98.dir/build.make CMakeFiles/cmTC_eac98.dir/build
+gmake[1]: Entering directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_eac98.dir/HAVE_WS2TCPIP_H.c.o
+/usr/bin/cc   -fPIE -o CMakeFiles/cmTC_eac98.dir/HAVE_WS2TCPIP_H.c.o -c /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CheckIncludeFiles/HAVE_WS2TCPIP_H.c
+/home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CheckIncludeFiles/HAVE_WS2TCPIP_H.c:2:10: fatal error: winsock2.h: No such file or directory
+    2 | #include <winsock2.h>
+      |          ^~~~~~~~~~~~
+compilation terminated.
+gmake[1]: *** [CMakeFiles/cmTC_eac98.dir/build.make:78: CMakeFiles/cmTC_eac98.dir/HAVE_WS2TCPIP_H.c.o] Error 1
+gmake[1]: Leaving directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_eac98/fast] Error 2
+
+
+Source:
+/* */
+#include <winsock2.h>
+#include <ws2tcpip.h>
+#include <windows.h>
+
+
+int main(void){return 0;}
+
+Determining if files winsock.h;windows.h exist failed with the following output:
+Change Dir: /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_dc1ca/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_dc1ca.dir/build.make CMakeFiles/cmTC_dc1ca.dir/build
+gmake[1]: Entering directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_dc1ca.dir/HAVE_WINSOCK_H.c.o
+/usr/bin/cc   -fPIE -o CMakeFiles/cmTC_dc1ca.dir/HAVE_WINSOCK_H.c.o -c /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CheckIncludeFiles/HAVE_WINSOCK_H.c
+/home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CheckIncludeFiles/HAVE_WINSOCK_H.c:2:10: fatal error: winsock.h: No such file or directory
+    2 | #include <winsock.h>
+      |          ^~~~~~~~~~~
+compilation terminated.
+gmake[1]: *** [CMakeFiles/cmTC_dc1ca.dir/build.make:78: CMakeFiles/cmTC_dc1ca.dir/HAVE_WINSOCK_H.c.o] Error 1
+gmake[1]: Leaving directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_dc1ca/fast] Error 2
+
+
+Source:
+/* */
+#include <winsock.h>
+#include <windows.h>
+
+
+int main(void){return 0;}
+
+Determining if files windows.h exist failed with the following output:
+Change Dir: /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_09a97/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_09a97.dir/build.make CMakeFiles/cmTC_09a97.dir/build
+gmake[1]: Entering directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_09a97.dir/HAVE_WINDOWS_H.c.o
+/usr/bin/cc   -fPIE -o CMakeFiles/cmTC_09a97.dir/HAVE_WINDOWS_H.c.o -c /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CheckIncludeFiles/HAVE_WINDOWS_H.c
+/home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CheckIncludeFiles/HAVE_WINDOWS_H.c:2:10: fatal error: windows.h: No such file or directory
+    2 | #include <windows.h>
+      |          ^~~~~~~~~~~
+compilation terminated.
+gmake[1]: *** [CMakeFiles/cmTC_09a97.dir/build.make:78: CMakeFiles/cmTC_09a97.dir/HAVE_WINDOWS_H.c.o] Error 1
+gmake[1]: Leaving directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_09a97/fast] Error 2
+
+
+Source:
+/* */
+#include <windows.h>
+
+
+int main(void){return 0;}
+
+Performing C SOURCE FILE Test HAVE_TYPE_SOCKET failed with the following output:
+Change Dir: /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_76f41/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_76f41.dir/build.make CMakeFiles/cmTC_76f41.dir/build
+gmake[1]: Entering directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_76f41.dir/src.c.o
+/usr/bin/cc -DHAVE_TYPE_SOCKET -D_GNU_SOURCE -D_POSIX_C_SOURCE=199309L -D_XOPEN_SOURCE=600  -fPIE -o CMakeFiles/cmTC_76f41.dir/src.c.o -c /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/src.c
+/home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/src.c: In function ‘main’:
+/home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/src.c:26:25: error: unknown type name ‘SOCKET’
+   26 |                         SOCKET var_exists;
+      |                         ^~~~~~
+gmake[1]: *** [CMakeFiles/cmTC_76f41.dir/build.make:78: CMakeFiles/cmTC_76f41.dir/src.c.o] Error 1
+gmake[1]: Leaving directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_76f41/fast] Error 2
+
+
+Source file was:
+
+		#include <stdio.h>
+		#include <stdlib.h>
+	
+		#include <stdbool.h>
+		#include <sys/types.h>
+		#include <arpa/inet.h>
+		#include <arpa/nameser.h>
+		#include <netdb.h>
+		#include <net/if.h>
+		#include <netinet/in.h>
+		#include <netinet/tcp.h>
+		#include <signal.h>
+		#include <stdlib.h>
+		#include <string.h>
+		#include <strings.h>
+		#include <sys/ioctl.h>
+		#include <sys/select.h>
+		#include <sys/socket.h>
+		#include <sys/time.h>
+		#include <sys/uio.h>
+		#include <time.h>
+		#include <fcntl.h>
+		#include <unistd.h>
+		int main() {
+			SOCKET var_exists;
+			(void)var_exists;
+			return 0;
+		}
+	
+Determining if the SO_NONBLOCK exist failed with the following output:
+Change Dir: /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_37ddb/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_37ddb.dir/build.make CMakeFiles/cmTC_37ddb.dir/build
+gmake[1]: Entering directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_37ddb.dir/CheckSymbolExists.c.o
+/usr/bin/cc -D_GNU_SOURCE -D_POSIX_C_SOURCE=199309L -D_XOPEN_SOURCE=600  -fPIE -o CMakeFiles/cmTC_37ddb.dir/CheckSymbolExists.c.o -c /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+/home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c: In function ‘main’:
+/home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c:27:19: error: ‘SO_NONBLOCK’ undeclared (first use in this function); did you mean ‘O_NONBLOCK’?
+   27 |   return ((int*)(&SO_NONBLOCK))[argc];
+      |                   ^~~~~~~~~~~
+      |                   O_NONBLOCK
+/home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c:27:19: note: each undeclared identifier is reported only once for each function it appears in
+gmake[1]: *** [CMakeFiles/cmTC_37ddb.dir/build.make:78: CMakeFiles/cmTC_37ddb.dir/CheckSymbolExists.c.o] Error 1
+gmake[1]: Leaving directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_37ddb/fast] Error 2
+
+
+File /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <stdbool.h>
+#include <sys/types.h>
+#include <arpa/inet.h>
+#include <arpa/nameser.h>
+#include <netdb.h>
+#include <net/if.h>
+#include <netinet/in.h>
+#include <netinet/tcp.h>
+#include <signal.h>
+#include <stdlib.h>
+#include <string.h>
+#include <strings.h>
+#include <sys/ioctl.h>
+#include <sys/select.h>
+#include <sys/socket.h>
+#include <sys/time.h>
+#include <sys/uio.h>
+#include <time.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef SO_NONBLOCK
+  return ((int*)(&SO_NONBLOCK))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+Determining if the bitncmp exist failed with the following output:
+Change Dir: /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_285af/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_285af.dir/build.make CMakeFiles/cmTC_285af.dir/build
+gmake[1]: Entering directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_285af.dir/CheckSymbolExists.c.o
+/usr/bin/cc -D_GNU_SOURCE -D_POSIX_C_SOURCE=199309L -D_XOPEN_SOURCE=600  -fPIE -o CMakeFiles/cmTC_285af.dir/CheckSymbolExists.c.o -c /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+/home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c: In function ‘main’:
+/home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c:27:19: error: ‘bitncmp’ undeclared (first use in this function); did you mean ‘bcmp’?
+   27 |   return ((int*)(&bitncmp))[argc];
+      |                   ^~~~~~~
+      |                   bcmp
+/home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c:27:19: note: each undeclared identifier is reported only once for each function it appears in
+gmake[1]: *** [CMakeFiles/cmTC_285af.dir/build.make:78: CMakeFiles/cmTC_285af.dir/CheckSymbolExists.c.o] Error 1
+gmake[1]: Leaving directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_285af/fast] Error 2
+
+
+File /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <stdbool.h>
+#include <sys/types.h>
+#include <arpa/inet.h>
+#include <arpa/nameser.h>
+#include <netdb.h>
+#include <net/if.h>
+#include <netinet/in.h>
+#include <netinet/tcp.h>
+#include <signal.h>
+#include <stdlib.h>
+#include <string.h>
+#include <strings.h>
+#include <sys/ioctl.h>
+#include <sys/select.h>
+#include <sys/socket.h>
+#include <sys/time.h>
+#include <sys/uio.h>
+#include <time.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef bitncmp
+  return ((int*)(&bitncmp))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+Determining if the closesocket exist failed with the following output:
+Change Dir: /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_b739b/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_b739b.dir/build.make CMakeFiles/cmTC_b739b.dir/build
+gmake[1]: Entering directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_b739b.dir/CheckSymbolExists.c.o
+/usr/bin/cc -D_GNU_SOURCE -D_POSIX_C_SOURCE=199309L -D_XOPEN_SOURCE=600  -fPIE -o CMakeFiles/cmTC_b739b.dir/CheckSymbolExists.c.o -c /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+/home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c: In function ‘main’:
+/home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c:27:19: error: ‘closesocket’ undeclared (first use in this function)
+   27 |   return ((int*)(&closesocket))[argc];
+      |                   ^~~~~~~~~~~
+/home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c:27:19: note: each undeclared identifier is reported only once for each function it appears in
+gmake[1]: *** [CMakeFiles/cmTC_b739b.dir/build.make:78: CMakeFiles/cmTC_b739b.dir/CheckSymbolExists.c.o] Error 1
+gmake[1]: Leaving directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_b739b/fast] Error 2
+
+
+File /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <stdbool.h>
+#include <sys/types.h>
+#include <arpa/inet.h>
+#include <arpa/nameser.h>
+#include <netdb.h>
+#include <net/if.h>
+#include <netinet/in.h>
+#include <netinet/tcp.h>
+#include <signal.h>
+#include <stdlib.h>
+#include <string.h>
+#include <strings.h>
+#include <sys/ioctl.h>
+#include <sys/select.h>
+#include <sys/socket.h>
+#include <sys/time.h>
+#include <sys/uio.h>
+#include <time.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef closesocket
+  return ((int*)(&closesocket))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+Determining if the CloseSocket exist failed with the following output:
+Change Dir: /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_1f945/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_1f945.dir/build.make CMakeFiles/cmTC_1f945.dir/build
+gmake[1]: Entering directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_1f945.dir/CheckSymbolExists.c.o
+/usr/bin/cc -D_GNU_SOURCE -D_POSIX_C_SOURCE=199309L -D_XOPEN_SOURCE=600  -fPIE -o CMakeFiles/cmTC_1f945.dir/CheckSymbolExists.c.o -c /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+/home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c: In function ‘main’:
+/home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c:27:19: error: ‘CloseSocket’ undeclared (first use in this function)
+   27 |   return ((int*)(&CloseSocket))[argc];
+      |                   ^~~~~~~~~~~
+/home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c:27:19: note: each undeclared identifier is reported only once for each function it appears in
+gmake[1]: *** [CMakeFiles/cmTC_1f945.dir/build.make:78: CMakeFiles/cmTC_1f945.dir/CheckSymbolExists.c.o] Error 1
+gmake[1]: Leaving directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_1f945/fast] Error 2
+
+
+File /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <stdbool.h>
+#include <sys/types.h>
+#include <arpa/inet.h>
+#include <arpa/nameser.h>
+#include <netdb.h>
+#include <net/if.h>
+#include <netinet/in.h>
+#include <netinet/tcp.h>
+#include <signal.h>
+#include <stdlib.h>
+#include <string.h>
+#include <strings.h>
+#include <sys/ioctl.h>
+#include <sys/select.h>
+#include <sys/socket.h>
+#include <sys/time.h>
+#include <sys/uio.h>
+#include <time.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef CloseSocket
+  return ((int*)(&CloseSocket))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+Determining if the inet_net_pton exist failed with the following output:
+Change Dir: /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_bb36d/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_bb36d.dir/build.make CMakeFiles/cmTC_bb36d.dir/build
+gmake[1]: Entering directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_bb36d.dir/CheckSymbolExists.c.o
+/usr/bin/cc -D_GNU_SOURCE -D_POSIX_C_SOURCE=199309L -D_XOPEN_SOURCE=600  -fPIE -o CMakeFiles/cmTC_bb36d.dir/CheckSymbolExists.c.o -c /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_bb36d
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_bb36d.dir/link.txt --verbose=1
+/usr/bin/cc -rdynamic CMakeFiles/cmTC_bb36d.dir/CheckSymbolExists.c.o -o cmTC_bb36d 
+/usr/bin/ld: CMakeFiles/cmTC_bb36d.dir/CheckSymbolExists.c.o: in function `main':
+CheckSymbolExists.c:(.text+0x1f): undefined reference to `inet_net_pton'
+collect2: error: ld returned 1 exit status
+gmake[1]: *** [CMakeFiles/cmTC_bb36d.dir/build.make:99: cmTC_bb36d] Error 1
+gmake[1]: Leaving directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_bb36d/fast] Error 2
+
+
+File /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <stdbool.h>
+#include <sys/types.h>
+#include <arpa/inet.h>
+#include <arpa/nameser.h>
+#include <netdb.h>
+#include <net/if.h>
+#include <netinet/in.h>
+#include <netinet/tcp.h>
+#include <signal.h>
+#include <stdlib.h>
+#include <string.h>
+#include <strings.h>
+#include <sys/ioctl.h>
+#include <sys/select.h>
+#include <sys/socket.h>
+#include <sys/time.h>
+#include <sys/uio.h>
+#include <time.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef inet_net_pton
+  return ((int*)(&inet_net_pton))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+Determining if the ioctlsocket exist failed with the following output:
+Change Dir: /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_42f0a/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_42f0a.dir/build.make CMakeFiles/cmTC_42f0a.dir/build
+gmake[1]: Entering directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_42f0a.dir/CheckSymbolExists.c.o
+/usr/bin/cc -D_GNU_SOURCE -D_POSIX_C_SOURCE=199309L -D_XOPEN_SOURCE=600  -fPIE -o CMakeFiles/cmTC_42f0a.dir/CheckSymbolExists.c.o -c /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+/home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c: In function ‘main’:
+/home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c:27:19: error: ‘ioctlsocket’ undeclared (first use in this function)
+   27 |   return ((int*)(&ioctlsocket))[argc];
+      |                   ^~~~~~~~~~~
+/home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c:27:19: note: each undeclared identifier is reported only once for each function it appears in
+gmake[1]: *** [CMakeFiles/cmTC_42f0a.dir/build.make:78: CMakeFiles/cmTC_42f0a.dir/CheckSymbolExists.c.o] Error 1
+gmake[1]: Leaving directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_42f0a/fast] Error 2
+
+
+File /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <stdbool.h>
+#include <sys/types.h>
+#include <arpa/inet.h>
+#include <arpa/nameser.h>
+#include <netdb.h>
+#include <net/if.h>
+#include <netinet/in.h>
+#include <netinet/tcp.h>
+#include <signal.h>
+#include <stdlib.h>
+#include <string.h>
+#include <strings.h>
+#include <sys/ioctl.h>
+#include <sys/select.h>
+#include <sys/socket.h>
+#include <sys/time.h>
+#include <sys/uio.h>
+#include <time.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef ioctlsocket
+  return ((int*)(&ioctlsocket))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+Determining if the IoctlSocket exist failed with the following output:
+Change Dir: /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_fcbd8/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_fcbd8.dir/build.make CMakeFiles/cmTC_fcbd8.dir/build
+gmake[1]: Entering directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_fcbd8.dir/CheckSymbolExists.c.o
+/usr/bin/cc -D_GNU_SOURCE -D_POSIX_C_SOURCE=199309L -D_XOPEN_SOURCE=600  -fPIE -o CMakeFiles/cmTC_fcbd8.dir/CheckSymbolExists.c.o -c /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+/home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c: In function ‘main’:
+/home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c:27:19: error: ‘IoctlSocket’ undeclared (first use in this function)
+   27 |   return ((int*)(&IoctlSocket))[argc];
+      |                   ^~~~~~~~~~~
+/home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c:27:19: note: each undeclared identifier is reported only once for each function it appears in
+gmake[1]: *** [CMakeFiles/cmTC_fcbd8.dir/build.make:78: CMakeFiles/cmTC_fcbd8.dir/CheckSymbolExists.c.o] Error 1
+gmake[1]: Leaving directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_fcbd8/fast] Error 2
+
+
+File /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <stdbool.h>
+#include <sys/types.h>
+#include <arpa/inet.h>
+#include <arpa/nameser.h>
+#include <netdb.h>
+#include <net/if.h>
+#include <netinet/in.h>
+#include <netinet/tcp.h>
+#include <signal.h>
+#include <stdlib.h>
+#include <string.h>
+#include <strings.h>
+#include <sys/ioctl.h>
+#include <sys/select.h>
+#include <sys/socket.h>
+#include <sys/time.h>
+#include <sys/uio.h>
+#include <time.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef IoctlSocket
+  return ((int*)(&IoctlSocket))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+Determining if the strcmpi exist failed with the following output:
+Change Dir: /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_486c6/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_486c6.dir/build.make CMakeFiles/cmTC_486c6.dir/build
+gmake[1]: Entering directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_486c6.dir/CheckSymbolExists.c.o
+/usr/bin/cc -D_GNU_SOURCE -D_POSIX_C_SOURCE=199309L -D_XOPEN_SOURCE=600  -fPIE -o CMakeFiles/cmTC_486c6.dir/CheckSymbolExists.c.o -c /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+/home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c: In function ‘main’:
+/home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c:27:19: error: ‘strcmpi’ undeclared (first use in this function); did you mean ‘strcmp’?
+   27 |   return ((int*)(&strcmpi))[argc];
+      |                   ^~~~~~~
+      |                   strcmp
+/home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c:27:19: note: each undeclared identifier is reported only once for each function it appears in
+gmake[1]: *** [CMakeFiles/cmTC_486c6.dir/build.make:78: CMakeFiles/cmTC_486c6.dir/CheckSymbolExists.c.o] Error 1
+gmake[1]: Leaving directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_486c6/fast] Error 2
+
+
+File /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <stdbool.h>
+#include <sys/types.h>
+#include <arpa/inet.h>
+#include <arpa/nameser.h>
+#include <netdb.h>
+#include <net/if.h>
+#include <netinet/in.h>
+#include <netinet/tcp.h>
+#include <signal.h>
+#include <stdlib.h>
+#include <string.h>
+#include <strings.h>
+#include <sys/ioctl.h>
+#include <sys/select.h>
+#include <sys/socket.h>
+#include <sys/time.h>
+#include <sys/uio.h>
+#include <time.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef strcmpi
+  return ((int*)(&strcmpi))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+Determining if the stricmp exist failed with the following output:
+Change Dir: /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_d1f58/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_d1f58.dir/build.make CMakeFiles/cmTC_d1f58.dir/build
+gmake[1]: Entering directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_d1f58.dir/CheckSymbolExists.c.o
+/usr/bin/cc -D_GNU_SOURCE -D_POSIX_C_SOURCE=199309L -D_XOPEN_SOURCE=600  -fPIE -o CMakeFiles/cmTC_d1f58.dir/CheckSymbolExists.c.o -c /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+/home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c: In function ‘main’:
+/home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c:27:19: error: ‘stricmp’ undeclared (first use in this function); did you mean ‘strncmp’?
+   27 |   return ((int*)(&stricmp))[argc];
+      |                   ^~~~~~~
+      |                   strncmp
+/home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c:27:19: note: each undeclared identifier is reported only once for each function it appears in
+gmake[1]: *** [CMakeFiles/cmTC_d1f58.dir/build.make:78: CMakeFiles/cmTC_d1f58.dir/CheckSymbolExists.c.o] Error 1
+gmake[1]: Leaving directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_d1f58/fast] Error 2
+
+
+File /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <stdbool.h>
+#include <sys/types.h>
+#include <arpa/inet.h>
+#include <arpa/nameser.h>
+#include <netdb.h>
+#include <net/if.h>
+#include <netinet/in.h>
+#include <netinet/tcp.h>
+#include <signal.h>
+#include <stdlib.h>
+#include <string.h>
+#include <strings.h>
+#include <sys/ioctl.h>
+#include <sys/select.h>
+#include <sys/socket.h>
+#include <sys/time.h>
+#include <sys/uio.h>
+#include <time.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef stricmp
+  return ((int*)(&stricmp))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+Determining if the strncmpi exist failed with the following output:
+Change Dir: /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_d02dd/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_d02dd.dir/build.make CMakeFiles/cmTC_d02dd.dir/build
+gmake[1]: Entering directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_d02dd.dir/CheckSymbolExists.c.o
+/usr/bin/cc -D_GNU_SOURCE -D_POSIX_C_SOURCE=199309L -D_XOPEN_SOURCE=600  -fPIE -o CMakeFiles/cmTC_d02dd.dir/CheckSymbolExists.c.o -c /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+/home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c: In function ‘main’:
+/home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c:27:19: error: ‘strncmpi’ undeclared (first use in this function); did you mean ‘strncmp’?
+   27 |   return ((int*)(&strncmpi))[argc];
+      |                   ^~~~~~~~
+      |                   strncmp
+/home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c:27:19: note: each undeclared identifier is reported only once for each function it appears in
+gmake[1]: *** [CMakeFiles/cmTC_d02dd.dir/build.make:78: CMakeFiles/cmTC_d02dd.dir/CheckSymbolExists.c.o] Error 1
+gmake[1]: Leaving directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_d02dd/fast] Error 2
+
+
+File /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <stdbool.h>
+#include <sys/types.h>
+#include <arpa/inet.h>
+#include <arpa/nameser.h>
+#include <netdb.h>
+#include <net/if.h>
+#include <netinet/in.h>
+#include <netinet/tcp.h>
+#include <signal.h>
+#include <stdlib.h>
+#include <string.h>
+#include <strings.h>
+#include <sys/ioctl.h>
+#include <sys/select.h>
+#include <sys/socket.h>
+#include <sys/time.h>
+#include <sys/uio.h>
+#include <time.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef strncmpi
+  return ((int*)(&strncmpi))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+Determining if the strnicmp exist failed with the following output:
+Change Dir: /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_b4d0b/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_b4d0b.dir/build.make CMakeFiles/cmTC_b4d0b.dir/build
+gmake[1]: Entering directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_b4d0b.dir/CheckSymbolExists.c.o
+/usr/bin/cc -D_GNU_SOURCE -D_POSIX_C_SOURCE=199309L -D_XOPEN_SOURCE=600  -fPIE -o CMakeFiles/cmTC_b4d0b.dir/CheckSymbolExists.c.o -c /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+/home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c: In function ‘main’:
+/home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c:27:19: error: ‘strnicmp’ undeclared (first use in this function); did you mean ‘strncmp’?
+   27 |   return ((int*)(&strnicmp))[argc];
+      |                   ^~~~~~~~
+      |                   strncmp
+/home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c:27:19: note: each undeclared identifier is reported only once for each function it appears in
+gmake[1]: *** [CMakeFiles/cmTC_b4d0b.dir/build.make:78: CMakeFiles/cmTC_b4d0b.dir/CheckSymbolExists.c.o] Error 1
+gmake[1]: Leaving directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_b4d0b/fast] Error 2
+
+
+File /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <stdbool.h>
+#include <sys/types.h>
+#include <arpa/inet.h>
+#include <arpa/nameser.h>
+#include <netdb.h>
+#include <net/if.h>
+#include <netinet/in.h>
+#include <netinet/tcp.h>
+#include <signal.h>
+#include <stdlib.h>
+#include <string.h>
+#include <strings.h>
+#include <sys/ioctl.h>
+#include <sys/select.h>
+#include <sys/socket.h>
+#include <sys/time.h>
+#include <sys/uio.h>
+#include <time.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef strnicmp
+  return ((int*)(&strnicmp))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+Determining if the function __system_property_get exists failed with the following output:
+Change Dir: /home/luis.antunes.veiga/sdb/MDS-go/GEDS/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_5c9dd/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_5c9dd.dir/build.make CMakeFiles/cmTC_5c9dd.dir/build
+gmake[1]: Entering directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_5c9dd.dir/CheckFunctionExists.c.o
+/usr/bin/cc -D_GNU_SOURCE -D_POSIX_C_SOURCE=199309L -D_XOPEN_SOURCE=600  -DCHECK_FUNCTION_EXISTS=__system_property_get -fPIE -o CMakeFiles/cmTC_5c9dd.dir/CheckFunctionExists.c.o -c /usr/local/share/cmake-3.22/Modules/CheckFunctionExists.c
+Linking C executable cmTC_5c9dd
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5c9dd.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=__system_property_get -rdynamic CMakeFiles/cmTC_5c9dd.dir/CheckFunctionExists.c.o -o cmTC_5c9dd 
+/usr/bin/ld: CMakeFiles/cmTC_5c9dd.dir/CheckFunctionExists.c.o: in function `main':
+CheckFunctionExists.c:(.text+0x14): undefined reference to `__system_property_get'
+collect2: error: ld returned 1 exit status
+gmake[1]: *** [CMakeFiles/cmTC_5c9dd.dir/build.make:99: cmTC_5c9dd] Error 1
+gmake[1]: Leaving directory '/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_5c9dd/fast] Error 2
+
+
+

@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/_deps/magic_enum-subbuild/CMakeFiles/magic_enum-populate"
+		},
+		{
+			"file" : "/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/_deps/magic_enum-subbuild/CMakeFiles/magic_enum-populate.rule"
+		},
+		{
+			"file" : "/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/_deps/magic_enum-subbuild/CMakeFiles/magic_enum-populate-complete.rule"
+		},
+		{
+			"file" : "/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/_deps/magic_enum-subbuild/magic_enum-populate-prefix/src/magic_enum-populate-stamp/magic_enum-populate-build.rule"
+		},
+		{
+			"file" : "/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/_deps/magic_enum-subbuild/magic_enum-populate-prefix/src/magic_enum-populate-stamp/magic_enum-populate-configure.rule"
+		},
+		{
+			"file" : "/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/_deps/magic_enum-subbuild/magic_enum-populate-prefix/src/magic_enum-populate-stamp/magic_enum-populate-download.rule"
+		},
+		{
+			"file" : "/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/_deps/magic_enum-subbuild/magic_enum-populate-prefix/src/magic_enum-populate-stamp/magic_enum-populate-install.rule"
+		},
+		{
+			"file" : "/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/_deps/magic_enum-subbuild/magic_enum-populate-prefix/src/magic_enum-populate-stamp/magic_enum-populate-mkdir.rule"
+		},
+		{
+			"file" : "/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/_deps/magic_enum-subbuild/magic_enum-populate-prefix/src/magic_enum-populate-stamp/magic_enum-populate-patch.rule"
+		},
+		{
+			"file" : "/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/_deps/magic_enum-subbuild/magic_enum-populate-prefix/src/magic_enum-populate-stamp/magic_enum-populate-test.rule"
+		},
+		{
+			"file" : "/mnt/sdb/luis.antunes.veiga/MDS-go/GEDS/_deps/magic_enum-subbuild/magic_enum-populate-prefix/src/magic_enum-populate-stamp/magic_enum-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"magic_enum-populate"
+		],
+		"name" : "magic_enum-populate"
+	}
+}

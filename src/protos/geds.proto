@@ -98,6 +98,15 @@ message SubscriptionStreamResponse {
   Object object = 2;
 }
 
+// LV New definitions
+message GatewayConfig {
+  string remoteAddress = 1;  
+}
+
+message AvailableGatewayConfigs {repeated GatewayConfig mappings = 1;}
+// LV END
+
+
 service MetadataService {
   rpc GetConnectionInformation(EmptyParams) returns (ConnectionInformation);
   rpc RegisterObjectStore(ObjectStoreConfig) returns (StatusResponse);
@@ -117,6 +126,18 @@ service MetadataService {
   rpc Subscribe(SubscriptionEvent) returns (StatusResponse);
   rpc SubscribeStream(SubscriptionStreamEvent) returns (stream SubscriptionStreamResponse);
   rpc Unsubscribe(SubscriptionEvent) returns (StatusResponse);
+
+  //LV New services for MDS-Gateway
+  rpc RegisterMDSGateway(GatewayConfig) returns (StatusResponse);
+  rpc ListMDSGateways(EmptyParams) returns (AvailableGatewayConfigs);
+  rpc ListBucketsAux(EmptyParams) returns (BucketListResponse);
+  rpc LookupBucketAux(Bucket) returns (StatusResponse);
+  rpc LookupObjectAux(ObjectID) returns (ObjectResponse);
+  rpc ListAux(ObjectListRequest) returns (ObjectListResponse);
+  rpc SubscribeAux(SubscriptionEvent) returns (StatusResponse);
+  rpc SubscribeStreamAux(SubscriptionStreamEvent) returns (stream SubscriptionStreamResponse);
+  rpc UnsubscribeAux(SubscriptionEvent) returns (StatusResponse);
+  // LV END
 }
 
 enum FileTransferProtocol {

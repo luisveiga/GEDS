@@ -11,6 +11,7 @@ var (
 	ErrorLogger   *log.Logger
 	FatalLogger   *log.Logger
 	WarningLogger *log.Logger
+	TraceLogger	  *log.Logger
 )
 
 const LogsPath = "./logs/"
@@ -31,4 +32,5 @@ func init() {
 	ErrorLogger = log.New(multiWriter, "ERROR: ", log.Ldate|log.Ltime|log.Lshortfile)
 	FatalLogger = log.New(multiWriter, "FATAL: ", log.Ldate|log.Ltime|log.Lshortfile)
 	WarningLogger = log.New(multiWriter, "WARNING: ", log.Ldate|log.Ltime|log.Lshortfile)
+	TraceLogger = log.New(io.MultiWriter(os.Stdout), "GEDS-TRACE; ", 0)
 }

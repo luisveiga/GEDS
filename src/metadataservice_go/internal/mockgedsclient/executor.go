@@ -21,6 +21,47 @@ func NewExecutor() *Executor {
 	return tempEx
 }
 
+// LV new definitions
+
+func (e *Executor) RegisterMDSGateway(remoteMDSAddress string) {
+	conn, err := e.mdsConnections["127.0.0.1"].Get(context.Background())
+	if conn == nil || err != nil {
+		logger.ErrorLogger.Println(err)
+	}
+	logger.InfoLogger.Println("Register MDS Gateway", remoteMDSAddress)
+	client := protos.NewMetadataServiceClient(conn.ClientConn)
+	gateway := &protos.GatewayConfig{
+		RemoteAddress:      remoteMDSAddress,
+	}
+	result, err := client.RegisterMDSGateway(context.Background(), gateway)
+	if err != nil {
+		logger.ErrorLogger.Println(err)
+	}
+	logger.InfoLogger.Println(result.Code)
+	if errCon := conn.Close(); errCon != nil {
+		logger.ErrorLogger.Println(errCon)
+	}	
+}
+
+func (e *Executor) ListMDSGateways() {
+	conn, err := e.mdsConnections["127.0.0.1"].Get(context.Background())
+	if conn == nil || err != nil {
+		logger.ErrorLogger.Println(err)
+	}
+	logger.InfoLogger.Println("Listing MDS Gateways")
+		client := protos.NewMetadataServiceClient(conn.ClientConn)
+	result, err := client.ListMDSGateways(context.Background(), &protos.EmptyParams{})
+	if err != nil {
+		logger.ErrorLogger.Println(err)
+	}
+	logger.InfoLogger.Println(result.Mappings)
+	if errCon := conn.Close(); errCon != nil {
+		logger.ErrorLogger.Println(errCon)
+	}	
+}
+
+//LV END
+
 func (e *Executor) RegisterObjectStore() {
 	conn, err := e.mdsConnections["127.0.0.1"].Get(context.Background())
 	if conn == nil || err != nil {
@@ -95,6 +136,33 @@ func (e *Executor) CreateBucket() {
 	}
 }
 
+func (e *Executor) CreateBucket2() {
+	conn, err := e.mdsConnections["127.0.0.1"].Get(context.Background())
+	if conn == nil || err != nil {
+		logger.ErrorLogger.Println(err)
+	}
+	client := protos.NewMetadataServiceClient(conn.ClientConn)
+	bucket := &protos.Bucket{
+		Bucket: "b1B",
+	}
+	result, err := client.CreateBucket(context.Background(), bucket)
+	if err != nil {
+		logger.ErrorLogger.Println(err)
+	}
+	bucket = &protos.Bucket{
+		Bucket: "b2B",
+	}
+	result, err = client.CreateBucket(context.Background(), bucket)
+	if err != nil {
+		logger.ErrorLogger.Println(err)
+	}
+	logger.InfoLogger.Println(result.Code)
+	if errCon := conn.Close(); errCon != nil {
+		logger.ErrorLogger.Println(errCon)
+	}
+}
+
+
 func (e *Executor) ListBuckets() {
 	conn, err := e.mdsConnections["127.0.0.1"].Get(context.Background())
 	if conn == nil || err != nil {
@@ -142,6 +210,23 @@ func (e *Executor) LookUpBucket() {
 		logger.ErrorLogger.Println(errCon)
 	}
 }
+
+func (e *Executor) LookUpBucket2() {
+	conn, err := e.mdsConnections["127.0.0.1"].Get(context.Background())
+	if conn == nil || err != nil {
+		logger.ErrorLogger.Println(err)
+	}
+	client := protos.NewMetadataServiceClient(conn.ClientConn)
+	bucket := &protos.Bucket{
+		Bucket: "b1B",
+	}
+	result, err := client.LookupBucket(context.Background(), bucket)
+	logger.InfoLogger.Println(result.Code)
+	if errCon := conn.Close(); errCon != nil {
+		logger.ErrorLogger.Println(errCon)
+	}
+}
+
 
 func (e *Executor) CreateObject() {
 	conn, err := e.mdsConnections["127.0.0.1"].Get(context.Background())
@@ -212,7 +297,7 @@ func (e *Executor) UpdateObject() {
 			Bucket: "b2",
 		},
 		Info: &protos.ObjectInfo{
-			Location:     "here2-updated",
+			Location:     "here2-updated-mcka",
 			Size:         3000,
 			SealedOffset: 3000,
 		},
@@ -226,6 +311,62 @@ func (e *Executor) UpdateObject() {
 		logger.ErrorLogger.Println(errCon)
 	}
 }
+
+func (e *Executor) UpdateObject2() {
+	conn, err := e.mdsConnections["127.0.0.1"].Get(context.Background())
+	if conn == nil || err != nil {
+		logger.ErrorLogger.Println(err)
+	}
+	client := protos.NewMetadataServiceClient(conn.ClientConn)
+	object := &protos.Object{
+		Id: &protos.ObjectID{
+			Key:    "file2",
+			Bucket: "b2",
+		},
+		Info: &protos.ObjectInfo{
+			Location:     "here2-updated-mckb-2",
+			Size:         3000,
+			SealedOffset: 3000,
+		},
+	}
+	result, err := client.Update(context.Background(), object)
+	if err != nil {
+		logger.ErrorLogger.Println(err)
+	}
+	logger.InfoLogger.Println(result.Code)
+	if errCon := conn.Close(); errCon != nil {
+		logger.ErrorLogger.Println(errCon)
+	}
+}
+
+func (e *Executor) UpdateObject3() {
+	conn, err := e.mdsConnections["127.0.0.1"].Get(context.Background())
+	if conn == nil || err != nil {
+		logger.ErrorLogger.Println(err)
+	}
+	client := protos.NewMetadataServiceClient(conn.ClientConn)
+	object := &protos.Object{
+		Id: &protos.ObjectID{
+			Key:    "file2",
+			Bucket: "b2",
+		},
+		Info: &protos.ObjectInfo{
+			Location:     "here2-updated-3",
+			Size:         3000,
+			SealedOffset: 3000,
+		},
+	}
+	result, err := client.Update(context.Background(), object)
+	if err != nil {
+		logger.ErrorLogger.Println(err)
+	}
+	logger.InfoLogger.Println(result.Code)
+	if errCon := conn.Close(); errCon != nil {
+		logger.ErrorLogger.Println(errCon)
+	}
+}
+
+
 
 func (e *Executor) DeleteObject() {
 	conn, err := e.mdsConnections["127.0.0.1"].Get(context.Background())
@@ -319,6 +460,8 @@ func (e *Executor) ListObjects() {
 }
 
 const subscriberId = "uuid1"
+const subscriberId2 = "uuid2"
+const subscriberId3 = "uuid3"
 
 func (e *Executor) Subscribe() {
 	conn, err := e.mdsConnections["127.0.0.1"].Get(context.Background())
@@ -329,7 +472,7 @@ func (e *Executor) Subscribe() {
 
 	object := &protos.SubscriptionEvent{
 		SubscriberID:     subscriberId,
-		Key:              "file3",
+		Key:              "file1",
 		BucketID:         "b2",
 		SubscriptionType: protos.SubscriptionType_OBJECT,
 	}
@@ -354,6 +497,77 @@ func (e *Executor) Subscribe() {
 		logger.ErrorLogger.Println(errCon)
 	}
 }
+
+func (e *Executor) Subscribe2() {
+	conn, err := e.mdsConnections["127.0.0.1"].Get(context.Background())
+	if conn == nil || err != nil {
+		logger.ErrorLogger.Println(err)
+	}
+	client := protos.NewMetadataServiceClient(conn.ClientConn)
+
+	object := &protos.SubscriptionEvent{
+		SubscriberID:     subscriberId2,
+		Key:              "file1",
+		BucketID:         "b2",
+		SubscriptionType: protos.SubscriptionType_OBJECT,
+	}
+	result, err := client.Subscribe(context.Background(), object)
+	if err != nil {
+		logger.ErrorLogger.Println(err)
+	}
+	logger.InfoLogger.Println(result.Code)
+
+	object2 := &protos.SubscriptionEvent{
+		SubscriberID:     subscriberId2,
+		BucketID:         "b2",
+		SubscriptionType: protos.SubscriptionType_BUCKET,
+	}
+	result2, err := client.Subscribe(context.Background(), object2)
+	if err != nil {
+		logger.ErrorLogger.Println(err)
+	}
+	logger.InfoLogger.Println(result2.Code)
+
+	if errCon := conn.Close(); errCon != nil {
+		logger.ErrorLogger.Println(errCon)
+	}
+}
+
+func (e *Executor) Subscribe3() {
+	conn, err := e.mdsConnections["127.0.0.1"].Get(context.Background())
+	if conn == nil || err != nil {
+		logger.ErrorLogger.Println(err)
+	}
+	client := protos.NewMetadataServiceClient(conn.ClientConn)
+
+	object := &protos.SubscriptionEvent{
+		SubscriberID:     subscriberId3,
+		Key:              "file1",
+		BucketID:         "b2",
+		SubscriptionType: protos.SubscriptionType_OBJECT,
+	}
+	result, err := client.Subscribe(context.Background(), object)
+	if err != nil {
+		logger.ErrorLogger.Println(err)
+	}
+	logger.InfoLogger.Println(result.Code)
+
+	object2 := &protos.SubscriptionEvent{
+		SubscriberID:     subscriberId3,
+		BucketID:         "b2",
+		SubscriptionType: protos.SubscriptionType_BUCKET,
+	}
+	result2, err := client.Subscribe(context.Background(), object2)
+	if err != nil {
+		logger.ErrorLogger.Println(err)
+	}
+	logger.InfoLogger.Println(result2.Code)
+
+	if errCon := conn.Close(); errCon != nil {
+		logger.ErrorLogger.Println(errCon)
+	}
+}
+
 
 func (e *Executor) SentUpdateAndCreate() {
 	conn, err := e.mdsConnections["127.0.0.1"].Get(context.Background())
@@ -388,6 +602,73 @@ func (e *Executor) SentUpdateAndCreate() {
 	}
 }
 
+func (e *Executor) SentUpdateAndCreate2() {
+	conn, err := e.mdsConnections["127.0.0.1"].Get(context.Background())
+	if conn == nil || err != nil {
+		logger.ErrorLogger.Println(err)
+	}
+	client := protos.NewMetadataServiceClient(conn.ClientConn)
+
+	streamer, err := client.CreateOrUpdateObjectStream(context.Background())
+	if err != nil {
+		logger.InfoLogger.Println(err)
+	}
+	for i := 0; i < 3; i++ {
+		object := &protos.Object{
+			Id: &protos.ObjectID{
+				Key:    "path1/path2/path3/file" + strconv.Itoa(i),
+				Bucket: "b2",
+			},
+			Info: &protos.ObjectInfo{
+				Location:     "hereB",
+				Size:         3000,
+				SealedOffset: 3000,
+			},
+		}
+		if err = streamer.Send(object); err != nil {
+			logger.ErrorLogger.Println(err)
+		}
+	}
+
+	if errCon := conn.Close(); errCon != nil {
+		logger.ErrorLogger.Println(errCon)
+	}
+}
+
+func (e *Executor) SentUpdateAndCreate3() {
+	conn, err := e.mdsConnections["127.0.0.1"].Get(context.Background())
+	if conn == nil || err != nil {
+		logger.ErrorLogger.Println(err)
+	}
+	client := protos.NewMetadataServiceClient(conn.ClientConn)
+
+	streamer, err := client.CreateOrUpdateObjectStream(context.Background())
+	if err != nil {
+		logger.InfoLogger.Println(err)
+	}
+	for i := 0; i < 3; i++ {
+		object := &protos.Object{
+			Id: &protos.ObjectID{
+				Key:    "path1/path2/path3/file" + strconv.Itoa(i),
+				Bucket: "b2",
+			},
+			Info: &protos.ObjectInfo{
+				Location:     "hereC",
+				Size:         3000,
+				SealedOffset: 3000,
+			},
+		}
+		if err = streamer.Send(object); err != nil {
+			logger.ErrorLogger.Println(err)
+		}
+	}
+
+	if errCon := conn.Close(); errCon != nil {
+		logger.ErrorLogger.Println(errCon)
+	}
+}
+
+
 func (e *Executor) SubscriberStream() {
 	conn, err := e.mdsConnections["127.0.0.1"].Get(context.Background())
 	if conn == nil || err != nil {
@@ -400,6 +681,7 @@ func (e *Executor) SubscriberStream() {
 	logger.InfoLogger.Println("subscribing stream")
 	for {
 		object, err := streamer.Recv()
+		logger.InfoLogger.Println("event payload received", object)
 		if err == io.EOF {
 			break
 		}
@@ -407,13 +689,67 @@ func (e *Executor) SubscriberStream() {
 			logger.ErrorLogger.Println(err)
 			break
 		}
-		logger.InfoLogger.Println(object)
 	}
 	logger.InfoLogger.Println("got disconnected")
 	if errCon := conn.Close(); errCon != nil {
 		logger.ErrorLogger.Println(errCon)
 	}
 }
+
+func (e *Executor) SubscriberStream2() {
+	conn, err := e.mdsConnections["127.0.0.1"].Get(context.Background())
+	if conn == nil || err != nil {
+		logger.ErrorLogger.Println(err)
+	}
+	client := protos.NewMetadataServiceClient(conn.ClientConn)
+	streamer, err := client.SubscribeStream(context.Background(), &protos.SubscriptionStreamEvent{
+		SubscriberID: subscriberId2,
+	})
+	logger.InfoLogger.Println("subscribing stream")
+	for {
+		object, err := streamer.Recv()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			logger.ErrorLogger.Println(err)
+			break
+		}
+		logger.InfoLogger.Println("event payload received", object)
+	}
+	logger.InfoLogger.Println("got disconnected")
+	if errCon := conn.Close(); errCon != nil {
+		logger.ErrorLogger.Println(errCon)
+	}
+}
+
+func (e *Executor) SubscriberStream3() {
+	conn, err := e.mdsConnections["127.0.0.1"].Get(context.Background())
+	if conn == nil || err != nil {
+		logger.ErrorLogger.Println(err)
+	}
+	client := protos.NewMetadataServiceClient(conn.ClientConn)
+	streamer, err := client.SubscribeStream(context.Background(), &protos.SubscriptionStreamEvent{
+		SubscriberID: subscriberId3,
+	})
+	logger.InfoLogger.Println("subscribing stream")
+	for {
+		object, err := streamer.Recv()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			logger.ErrorLogger.Println(err)
+			break
+		}
+		logger.InfoLogger.Println("event payload received", object)
+	}
+	logger.InfoLogger.Println("got disconnected")
+	if errCon := conn.Close(); errCon != nil {
+		logger.ErrorLogger.Println(errCon)
+	}
+}
+
 
 func (e *Executor) Unsubscribe() {
 	conn, err := e.mdsConnections["127.0.0.1"].Get(context.Background())
@@ -448,6 +784,77 @@ func (e *Executor) Unsubscribe() {
 		logger.ErrorLogger.Println(errCon)
 	}
 }
+
+
+func (e *Executor) Unsubscribe2() {
+	conn, err := e.mdsConnections["127.0.0.1"].Get(context.Background())
+	if conn == nil || err != nil {
+		logger.ErrorLogger.Println(err)
+	}
+	client := protos.NewMetadataServiceClient(conn.ClientConn)
+	object := &protos.SubscriptionEvent{
+		SubscriberID:     subscriberId2,
+		Key:              "file3",
+		BucketID:         "b2",
+		SubscriptionType: protos.SubscriptionType_OBJECT,
+	}
+	result, err := client.Unsubscribe(context.Background(), object)
+	if err != nil {
+		logger.ErrorLogger.Println(err)
+	}
+	logger.InfoLogger.Println(result.Code)
+
+	object2 := &protos.SubscriptionEvent{
+		SubscriberID:     subscriberId2,
+		BucketID:         "b2",
+		SubscriptionType: protos.SubscriptionType_BUCKET,
+	}
+	result2, err := client.Unsubscribe(context.Background(), object2)
+	if err != nil {
+		logger.ErrorLogger.Println(err)
+	}
+	logger.InfoLogger.Println(result2.Code)
+
+	if errCon := conn.Close(); errCon != nil {
+		logger.ErrorLogger.Println(errCon)
+	}
+}
+
+func (e *Executor) Unsubscribe3() {
+	conn, err := e.mdsConnections["127.0.0.1"].Get(context.Background())
+	if conn == nil || err != nil {
+		logger.ErrorLogger.Println(err)
+	}
+	client := protos.NewMetadataServiceClient(conn.ClientConn)
+	object := &protos.SubscriptionEvent{
+		SubscriberID:     subscriberId3,
+		Key:              "file3",
+		BucketID:         "b2",
+		SubscriptionType: protos.SubscriptionType_OBJECT,
+	}
+	result, err := client.Unsubscribe(context.Background(), object)
+	if err != nil {
+		logger.ErrorLogger.Println(err)
+	}
+	logger.InfoLogger.Println(result.Code)
+
+	object2 := &protos.SubscriptionEvent{
+		SubscriberID:     subscriberId3,
+		BucketID:         "b2",
+		SubscriptionType: protos.SubscriptionType_BUCKET,
+	}
+	result2, err := client.Unsubscribe(context.Background(), object2)
+	if err != nil {
+		logger.ErrorLogger.Println(err)
+	}
+	logger.InfoLogger.Println(result2.Code)
+
+	if errCon := conn.Close(); errCon != nil {
+		logger.ErrorLogger.Println(errCon)
+	}
+}
+
+
 
 func (e *Executor) ListObjects2() {
 	conn, err := e.mdsConnections["127.0.0.1"].Get(context.Background())

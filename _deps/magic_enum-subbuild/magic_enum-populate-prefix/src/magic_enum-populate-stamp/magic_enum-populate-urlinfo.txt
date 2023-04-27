@@ -1,0 +1,3 @@
+repository='external project URL'
+module='https://github.com/Neargye/magic_enum/archive/3d1f6a5a2a3fbcba077e00ad0ccc2dd9fefc2ca7.zip'
+tag=''

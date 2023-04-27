@@ -41,6 +41,15 @@ const (
 	MetadataService_Subscribe_FullMethodName                  = "/geds.rpc.MetadataService/Subscribe"
 	MetadataService_SubscribeStream_FullMethodName            = "/geds.rpc.MetadataService/SubscribeStream"
 	MetadataService_Unsubscribe_FullMethodName                = "/geds.rpc.MetadataService/Unsubscribe"
+	MetadataService_RegisterMDSGateway_FullMethodName         = "/geds.rpc.MetadataService/RegisterMDSGateway"
+	MetadataService_ListMDSGateways_FullMethodName            = "/geds.rpc.MetadataService/ListMDSGateways"
+	MetadataService_ListBucketsAux_FullMethodName             = "/geds.rpc.MetadataService/ListBucketsAux"
+	MetadataService_LookupBucketAux_FullMethodName            = "/geds.rpc.MetadataService/LookupBucketAux"
+	MetadataService_LookupObjectAux_FullMethodName            = "/geds.rpc.MetadataService/LookupObjectAux"
+	MetadataService_ListAux_FullMethodName                    = "/geds.rpc.MetadataService/ListAux"
+	MetadataService_SubscribeAux_FullMethodName               = "/geds.rpc.MetadataService/SubscribeAux"
+	MetadataService_SubscribeStreamAux_FullMethodName         = "/geds.rpc.MetadataService/SubscribeStreamAux"
+	MetadataService_UnsubscribeAux_FullMethodName             = "/geds.rpc.MetadataService/UnsubscribeAux"
 )
 
 // MetadataServiceClient is the client API for MetadataService service.
@@ -64,6 +73,16 @@ type MetadataServiceClient interface {
 	Subscribe(ctx context.Context, in *SubscriptionEvent, opts ...grpc.CallOption) (*StatusResponse, error)
 	SubscribeStream(ctx context.Context, in *SubscriptionStreamEvent, opts ...grpc.CallOption) (MetadataService_SubscribeStreamClient, error)
 	Unsubscribe(ctx context.Context, in *SubscriptionEvent, opts ...grpc.CallOption) (*StatusResponse, error)
+	// LV New services for MDS-Gateway
+	RegisterMDSGateway(ctx context.Context, in *GatewayConfig, opts ...grpc.CallOption) (*StatusResponse, error)
+	ListMDSGateways(ctx context.Context, in *EmptyParams, opts ...grpc.CallOption) (*AvailableGatewayConfigs, error)
+	ListBucketsAux(ctx context.Context, in *EmptyParams, opts ...grpc.CallOption) (*BucketListResponse, error)
+	LookupBucketAux(ctx context.Context, in *Bucket, opts ...grpc.CallOption) (*StatusResponse, error)
+	LookupObjectAux(ctx context.Context, in *ObjectID, opts ...grpc.CallOption) (*ObjectResponse, error)
+	ListAux(ctx context.Context, in *ObjectListRequest, opts ...grpc.CallOption) (*ObjectListResponse, error)
+	SubscribeAux(ctx context.Context, in *SubscriptionEvent, opts ...grpc.CallOption) (*StatusResponse, error)
+	SubscribeStreamAux(ctx context.Context, in *SubscriptionStreamEvent, opts ...grpc.CallOption) (MetadataService_SubscribeStreamAuxClient, error)
+	UnsubscribeAux(ctx context.Context, in *SubscriptionEvent, opts ...grpc.CallOption) (*StatusResponse, error)
 }
 
 type metadataServiceClient struct {
@@ -275,6 +294,110 @@ func (c *metadataServiceClient) Unsubscribe(ctx context.Context, in *Subscriptio
 	return out, nil
 }
 
+func (c *metadataServiceClient) RegisterMDSGateway(ctx context.Context, in *GatewayConfig, opts ...grpc.CallOption) (*StatusResponse, error) {
+	out := new(StatusResponse)
+	err := c.cc.Invoke(ctx, MetadataService_RegisterMDSGateway_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *metadataServiceClient) ListMDSGateways(ctx context.Context, in *EmptyParams, opts ...grpc.CallOption) (*AvailableGatewayConfigs, error) {
+	out := new(AvailableGatewayConfigs)
+	err := c.cc.Invoke(ctx, MetadataService_ListMDSGateways_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *metadataServiceClient) ListBucketsAux(ctx context.Context, in *EmptyParams, opts ...grpc.CallOption) (*BucketListResponse, error) {
+	out := new(BucketListResponse)
+	err := c.cc.Invoke(ctx, MetadataService_ListBucketsAux_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *metadataServiceClient) LookupBucketAux(ctx context.Context, in *Bucket, opts ...grpc.CallOption) (*StatusResponse, error) {
+	out := new(StatusResponse)
+	err := c.cc.Invoke(ctx, MetadataService_LookupBucketAux_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *metadataServiceClient) LookupObjectAux(ctx context.Context, in *ObjectID, opts ...grpc.CallOption) (*ObjectResponse, error) {
+	out := new(ObjectResponse)
+	err := c.cc.Invoke(ctx, MetadataService_LookupObjectAux_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *metadataServiceClient) ListAux(ctx context.Context, in *ObjectListRequest, opts ...grpc.CallOption) (*ObjectListResponse, error) {
+	out := new(ObjectListResponse)
+	err := c.cc.Invoke(ctx, MetadataService_ListAux_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *metadataServiceClient) SubscribeAux(ctx context.Context, in *SubscriptionEvent, opts ...grpc.CallOption) (*StatusResponse, error) {
+	out := new(StatusResponse)
+	err := c.cc.Invoke(ctx, MetadataService_SubscribeAux_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *metadataServiceClient) SubscribeStreamAux(ctx context.Context, in *SubscriptionStreamEvent, opts ...grpc.CallOption) (MetadataService_SubscribeStreamAuxClient, error) {
+	stream, err := c.cc.NewStream(ctx, &MetadataService_ServiceDesc.Streams[2], MetadataService_SubscribeStreamAux_FullMethodName, opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &metadataServiceSubscribeStreamAuxClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type MetadataService_SubscribeStreamAuxClient interface {
+	Recv() (*SubscriptionStreamResponse, error)
+	grpc.ClientStream
+}
+
+type metadataServiceSubscribeStreamAuxClient struct {
+	grpc.ClientStream
+}
+
+func (x *metadataServiceSubscribeStreamAuxClient) Recv() (*SubscriptionStreamResponse, error) {
+	m := new(SubscriptionStreamResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *metadataServiceClient) UnsubscribeAux(ctx context.Context, in *SubscriptionEvent, opts ...grpc.CallOption) (*StatusResponse, error) {
+	out := new(StatusResponse)
+	err := c.cc.Invoke(ctx, MetadataService_UnsubscribeAux_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MetadataServiceServer is the server API for MetadataService service.
 // All implementations should embed UnimplementedMetadataServiceServer
 // for forward compatibility
@@ -296,6 +419,16 @@ type MetadataServiceServer interface {
 	Subscribe(context.Context, *SubscriptionEvent) (*StatusResponse, error)
 	SubscribeStream(*SubscriptionStreamEvent, MetadataService_SubscribeStreamServer) error
 	Unsubscribe(context.Context, *SubscriptionEvent) (*StatusResponse, error)
+	// LV New services for MDS-Gateway
+	RegisterMDSGateway(context.Context, *GatewayConfig) (*StatusResponse, error)
+	ListMDSGateways(context.Context, *EmptyParams) (*AvailableGatewayConfigs, error)
+	ListBucketsAux(context.Context, *EmptyParams) (*BucketListResponse, error)
+	LookupBucketAux(context.Context, *Bucket) (*StatusResponse, error)
+	LookupObjectAux(context.Context, *ObjectID) (*ObjectResponse, error)
+	ListAux(context.Context, *ObjectListRequest) (*ObjectListResponse, error)
+	SubscribeAux(context.Context, *SubscriptionEvent) (*StatusResponse, error)
+	SubscribeStreamAux(*SubscriptionStreamEvent, MetadataService_SubscribeStreamAuxServer) error
+	UnsubscribeAux(context.Context, *SubscriptionEvent) (*StatusResponse, error)
 }
 
 // UnimplementedMetadataServiceServer should be embedded to have forward compatible implementations.
@@ -352,6 +485,33 @@ func (UnimplementedMetadataServiceServer) SubscribeStream(*SubscriptionStreamEve
 }
 func (UnimplementedMetadataServiceServer) Unsubscribe(context.Context, *SubscriptionEvent) (*StatusResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Unsubscribe not implemented")
+}
+func (UnimplementedMetadataServiceServer) RegisterMDSGateway(context.Context, *GatewayConfig) (*StatusResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RegisterMDSGateway not implemented")
+}
+func (UnimplementedMetadataServiceServer) ListMDSGateways(context.Context, *EmptyParams) (*AvailableGatewayConfigs, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListMDSGateways not implemented")
+}
+func (UnimplementedMetadataServiceServer) ListBucketsAux(context.Context, *EmptyParams) (*BucketListResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListBucketsAux not implemented")
+}
+func (UnimplementedMetadataServiceServer) LookupBucketAux(context.Context, *Bucket) (*StatusResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LookupBucketAux not implemented")
+}
+func (UnimplementedMetadataServiceServer) LookupObjectAux(context.Context, *ObjectID) (*ObjectResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LookupObjectAux not implemented")
+}
+func (UnimplementedMetadataServiceServer) ListAux(context.Context, *ObjectListRequest) (*ObjectListResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListAux not implemented")
+}
+func (UnimplementedMetadataServiceServer) SubscribeAux(context.Context, *SubscriptionEvent) (*StatusResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SubscribeAux not implemented")
+}
+func (UnimplementedMetadataServiceServer) SubscribeStreamAux(*SubscriptionStreamEvent, MetadataService_SubscribeStreamAuxServer) error {
+	return status.Errorf(codes.Unimplemented, "method SubscribeStreamAux not implemented")
+}
+func (UnimplementedMetadataServiceServer) UnsubscribeAux(context.Context, *SubscriptionEvent) (*StatusResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UnsubscribeAux not implemented")
 }
 
 // UnsafeMetadataServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -682,6 +842,171 @@ func _MetadataService_Unsubscribe_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _MetadataService_RegisterMDSGateway_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GatewayConfig)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MetadataServiceServer).RegisterMDSGateway(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: MetadataService_RegisterMDSGateway_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MetadataServiceServer).RegisterMDSGateway(ctx, req.(*GatewayConfig))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MetadataService_ListMDSGateways_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EmptyParams)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MetadataServiceServer).ListMDSGateways(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: MetadataService_ListMDSGateways_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MetadataServiceServer).ListMDSGateways(ctx, req.(*EmptyParams))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MetadataService_ListBucketsAux_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EmptyParams)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MetadataServiceServer).ListBucketsAux(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: MetadataService_ListBucketsAux_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MetadataServiceServer).ListBucketsAux(ctx, req.(*EmptyParams))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MetadataService_LookupBucketAux_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Bucket)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MetadataServiceServer).LookupBucketAux(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: MetadataService_LookupBucketAux_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MetadataServiceServer).LookupBucketAux(ctx, req.(*Bucket))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MetadataService_LookupObjectAux_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ObjectID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MetadataServiceServer).LookupObjectAux(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: MetadataService_LookupObjectAux_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MetadataServiceServer).LookupObjectAux(ctx, req.(*ObjectID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MetadataService_ListAux_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ObjectListRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MetadataServiceServer).ListAux(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: MetadataService_ListAux_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MetadataServiceServer).ListAux(ctx, req.(*ObjectListRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MetadataService_SubscribeAux_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SubscriptionEvent)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MetadataServiceServer).SubscribeAux(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: MetadataService_SubscribeAux_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MetadataServiceServer).SubscribeAux(ctx, req.(*SubscriptionEvent))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MetadataService_SubscribeStreamAux_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(SubscriptionStreamEvent)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(MetadataServiceServer).SubscribeStreamAux(m, &metadataServiceSubscribeStreamAuxServer{stream})
+}
+
+type MetadataService_SubscribeStreamAuxServer interface {
+	Send(*SubscriptionStreamResponse) error
+	grpc.ServerStream
+}
+
+type metadataServiceSubscribeStreamAuxServer struct {
+	grpc.ServerStream
+}
+
+func (x *metadataServiceSubscribeStreamAuxServer) Send(m *SubscriptionStreamResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func _MetadataService_UnsubscribeAux_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SubscriptionEvent)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MetadataServiceServer).UnsubscribeAux(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: MetadataService_UnsubscribeAux_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MetadataServiceServer).UnsubscribeAux(ctx, req.(*SubscriptionEvent))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // MetadataService_ServiceDesc is the grpc.ServiceDesc for MetadataService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -749,6 +1074,38 @@ var MetadataService_ServiceDesc = grpc.ServiceDesc{
 			MethodName: "Unsubscribe",
 			Handler:    _MetadataService_Unsubscribe_Handler,
 		},
+		{
+			MethodName: "RegisterMDSGateway",
+			Handler:    _MetadataService_RegisterMDSGateway_Handler,
+		},
+		{
+			MethodName: "ListMDSGateways",
+			Handler:    _MetadataService_ListMDSGateways_Handler,
+		},
+		{
+			MethodName: "ListBucketsAux",
+			Handler:    _MetadataService_ListBucketsAux_Handler,
+		},
+		{
+			MethodName: "LookupBucketAux",
+			Handler:    _MetadataService_LookupBucketAux_Handler,
+		},
+		{
+			MethodName: "LookupObjectAux",
+			Handler:    _MetadataService_LookupObjectAux_Handler,
+		},
+		{
+			MethodName: "ListAux",
+			Handler:    _MetadataService_ListAux_Handler,
+		},
+		{
+			MethodName: "SubscribeAux",
+			Handler:    _MetadataService_SubscribeAux_Handler,
+		},
+		{
+			MethodName: "UnsubscribeAux",
+			Handler:    _MetadataService_UnsubscribeAux_Handler,
+		},
 	},
 	Streams: []grpc.StreamDesc{
 		{
@@ -759,6 +1116,11 @@ var MetadataService_ServiceDesc = grpc.ServiceDesc{
 		{
 			StreamName:    "SubscribeStream",
 			Handler:       _MetadataService_SubscribeStream_Handler,
+			ServerStreams: true,
+		},
+		{
+			StreamName:    "SubscribeStreamAux",
+			Handler:       _MetadataService_SubscribeStreamAux_Handler,
 			ServerStreams: true,
 		},
 	},

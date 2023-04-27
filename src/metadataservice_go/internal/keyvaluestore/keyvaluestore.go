@@ -6,20 +6,56 @@ import (
 	"github.com/IBM/gedsmds/internal/keyvaluestore/db"
 	"github.com/IBM/gedsmds/internal/logger"
 	"github.com/IBM/gedsmds/protos"
+	"github.com/IBM/gedsmds/internal/connection/gtconnpool"
 	"golang.org/x/exp/maps"
 	"strings"
 	"sync"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
+	"google.golang.org/grpc/keepalive"
+	"time"
+	"context"
 )
+
+//LV new definitions
+type Executor struct {
+	mdsGatewayConnections map[string]*gtconnpool.Pool
+}
+
+func NewExecutor(gateway string) *Executor {
+	tempEx := &Executor{
+		mdsGatewayConnections: gtconnpool.GetMDSGatewayConnectionsStream(gateway),
+	}
+	gtconnpool.SleepAndContinue()
+	return tempEx
+}
+// LV END
+
+//LV new defitions 
+func (kv *Service) GatewayConfigs() (map[string]*protos.GatewayConfig){
+	return kv.gatewayConfigs
+}
+
+func (kv *Service) GatewayConfigsLock() (*sync.RWMutex) {
+	return kv.gatewayConfigsLock
+}
+//LV END
+
 
 func InitKeyValueStoreService() *Service {
 	kvStore := &Service{
-		dbConnection: db.NewOperations(),
+		//dbConnection: db.NewOperations(),
 
 		objectStoreConfigsLock: &sync.RWMutex{},
 		objectStoreConfigs:     map[string]*protos.ObjectStoreConfig{},
 
 		bucketsLock: &sync.RWMutex{},
 		buckets:     map[string]*Bucket{},
+
+		//LV new definitions
+		gatewayConfigsLock: &sync.RWMutex{},
+		gatewayConfigs:     map[string]*protos.GatewayConfig{},
+		//LV end
 	}
 	go kvStore.populateCache()
 	return kvStore
@@ -44,7 +80,7 @@ func (kv *Service) populateCache() {
 }
 
 func (kv *Service) populateObjectStoreConfig() {
-	if allObjectStoreConfig, err := kv.dbConnection.GetAllObjectStoreConfig(); err != nil {
+/*	if allObjectStoreConfig, err := kv.dbConnection.GetAllObjectStoreConfig(); err != nil {
 		logger.ErrorLogger.Println(err)
 	} else {
 		kv.objectStoreConfigsLock.Lock()
@@ -53,10 +89,11 @@ func (kv *Service) populateObjectStoreConfig() {
 		}
 		kv.objectStoreConfigsLock.Unlock()
 	}
+	*/
 }
 
 func (kv *Service) populateBuckets() {
-	if allBuckets, err := kv.dbConnection.GetAllBuckets(); err != nil {
+/*	if allBuckets, err := kv.dbConnection.GetAllBuckets(); err != nil {
 		logger.ErrorLogger.Println(err)
 	} else {
 		kv.bucketsLock.Lock()
@@ -75,6 +112,8 @@ func (kv *Service) populateBuckets() {
 		}
 		kv.bucketsLock.Unlock()
 	}
+*/
+
 }
 
 func (kv *Service) RegisterObjectStore(objectStore *protos.ObjectStoreConfig) error {
@@ -85,10 +124,10 @@ func (kv *Service) RegisterObjectStore(objectStore *protos.ObjectStoreConfig) er
 	}
 	kv.objectStoreConfigs[objectStore.Bucket] = objectStore
 	if config.Config.PersistentStorageEnabled {
-		kv.dbConnection.ObjectStoreConfigChan <- &db.OperationParams{
-			ObjectStoreConfig: objectStore,
-			Type:              db.PUT,
-		}
+		//kv.dbConnection.ObjectStoreConfigChan <- &db.OperationParams{
+		//	ObjectStoreConfig: objectStore,
+		//	Type:              db.PUT,
+		//}
 	}
 	return nil
 }
@@ -99,9 +138,38 @@ func (kv *Service) ListObjectStores() (*protos.AvailableObjectStoreConfigs, erro
 	mappings := &protos.AvailableObjectStoreConfigs{Mappings: []*protos.ObjectStoreConfig{}}
 	for _, objectStoreConfig := range kv.objectStoreConfigs {
 		mappings.Mappings = append(mappings.Mappings, objectStoreConfig)
+		logger.TraceLogger.Println("----;", time.Now().UnixMicro(),";GEN;LST_STORE;", objectStoreConfig.Bucket, ";", objectStoreConfig) 
 	}
 	return mappings, nil
 }
+
+
+// LV new definitions
+
+func (kv *Service) RegisterMDSGateway(gateway *protos.GatewayConfig) error {
+	kv.gatewayConfigsLock.Lock()
+	defer kv.gatewayConfigsLock.Unlock()
+	if _, ok := kv.gatewayConfigs[gateway.RemoteAddress]; ok {
+		return errors.New("gateway already exists")
+	}
+	kv.gatewayConfigs[gateway.RemoteAddress] = gateway
+	NewExecutor(gateway.RemoteAddress) 
+		
+	return nil
+}
+
+func (kv *Service) ListMDSGateways() (*protos.AvailableGatewayConfigs, error) {
+	kv.gatewayConfigsLock.RLock()
+	defer kv.gatewayConfigsLock.RUnlock()
+	mappings := &protos.AvailableGatewayConfigs{Mappings: []*protos.GatewayConfig{}}
+	for _, gatewayConfig := range kv.gatewayConfigs {
+		mappings.Mappings = append(mappings.Mappings, gatewayConfig)
+	}
+	return mappings, nil
+}
+
+// LV END
+
 
 func (kv *Service) CreateBucket(bucket *protos.Bucket) error {
 	kv.bucketsLock.Lock()
@@ -137,21 +205,105 @@ func (kv *Service) DeleteBucket(bucket *protos.Bucket) error {
 }
 
 func (kv *Service) ListBuckets() (*protos.BucketListResponse, error) {
-	kv.bucketsLock.RLock()
+	/*kv.bucketsLock.RLock()
 	defer kv.bucketsLock.RUnlock()
 	buckets := &protos.BucketListResponse{Results: []string{}}
 	buckets.Results = append(buckets.Results, maps.Keys(kv.buckets)...)
 	return buckets, nil
+	*/
+	//LV : lookup prefix locally and return it if found
+	logger.InfoLogger.Println("first perform local metadata bucket list")
+	
+	result, err  := kv.ListBucketsAux() 
+
+	if (err == nil) {
+		logger.InfoLogger.Println("local metadata bucket list found: ", result, err)
+		//return result, nil 
+	}
+
+	//LV: iterate gateways until object is found (first one found is returned, assume namespace partitioning by owner/user)
+	logger.ErrorLogger.Println("list buckets - iterating connections to known gateways")
+	for _, gatewayConfig := range kv.gatewayConfigs {
+		//conn, err := gtconnpool.GetMDSGatewayConnectionsStream(gatewayConfig.RemoteAddress)[gatewayConfig.RemoteAddress].clients
+		conn, err := factoryNode(gatewayConfig.RemoteAddress)
+		if conn == nil || err != nil {
+			logger.ErrorLogger.Println("Error connection to MDSGategway ", gatewayConfig.RemoteAddress)
+		}
+		logger.InfoLogger.Println("Setup connection to gateway", gatewayConfig.RemoteAddress)
+		client := protos.NewMetadataServiceClient(conn)
+		emptyParams := &protos.EmptyParams{}
+		result2, err := client.ListBucketsAux(context.Background(), emptyParams)
+		if err != nil {
+			logger.ErrorLogger.Println(err)
+		} else {
+			logger.InfoLogger.Println("list buckets - metadata returned from gateway", gatewayConfig, result2)
+			for _, result2_aux := range result2.Results {
+				result.Results = append(result.Results, result2_aux)
+			}
+		}
+	}
+	return result, err
 }
 
-func (kv *Service) LookupBucket(bucket *protos.Bucket) error {
+// LV - new definitions 
+
+func (kv *Service) LookupBucketAux(bucket *protos.Bucket) error {
 	kv.bucketsLock.RLock()
 	defer kv.bucketsLock.RUnlock()
 	if _, ok := kv.buckets[bucket.Bucket]; !ok {
+		logger.ErrorLogger.Println("Bucket", bucket.Bucket, "NOT found locally")
 		return errors.New("bucket does not exist")
 	}
+	logger.InfoLogger.Println("Bucket", bucket.Bucket, "found locally")
 	return nil
 }
+
+func (kv *Service) LookupBucket(bucket *protos.Bucket) error {
+	//LV : lookup bucket locally and return it if found
+	logger.InfoLogger.Println("first perform local metadata BUCKET lookup", bucket)
+	result := kv.LookupBucketAux(bucket) 
+	if result == nil {
+		logger.InfoLogger.Println("returning local metadata BUCKET lookup", result)
+		logger.InfoLogger.Println("BUCKET metadata returned finally",  result)
+		return nil 
+	}
+
+	//LV: iterate gateways until BUCKET is found (first one found is returned, assume namespace partitioning by owner/user)
+	kv.gatewayConfigsLock.RLock()
+	defer kv.gatewayConfigsLock.RUnlock()
+	
+	logger.ErrorLogger.Println("BUCKET not found locally - iterating connections to known gateways")
+	for _, gatewayConfig := range kv.gatewayConfigs {
+		//conn, err := gtconnpool.GetMDSGatewayConnectionsStream(gatewayConfig.RemoteAddress)[gatewayConfig.RemoteAddress].clients
+		conn, err := factoryNode(gatewayConfig.RemoteAddress)
+		if conn == nil || err != nil {
+			logger.ErrorLogger.Println("Error connection to MDSGategway ", gatewayConfig.RemoteAddress)
+		}
+		logger.InfoLogger.Println("Setup connection to gateway", gatewayConfig.RemoteAddress)
+		client := protos.NewMetadataServiceClient(conn)
+		bucket := &protos.Bucket{
+		Bucket:    bucket.Bucket,
+		}
+		
+		result, err := client.LookupBucketAux(context.Background(), bucket)
+		if err == nil {
+			logger.InfoLogger.Println("BUCKET metadata returned from gateway", gatewayConfig, result.Code)
+			logger.InfoLogger.Println("BUCKET metadata returned finally",  result.Code)
+			return nil //LV - should be  return result?
+		}
+		/*if err != nil {
+			logger.ErrorLogger.Println(err)
+		} else {
+			logger.InfoLogger.Println("BUCKET metadata returned from gateway", gatewayConfig, result)
+			logger.InfoLogger.Println("BUCKET metadata returned finally",  result)
+			res2 := result 
+			return res2 //LV - should be  return result
+		}*/
+	}
+	logger.ErrorLogger.Println("Bucket", bucket.Bucket, "NOT found locally NEITHER in any gateway")
+	return errors.New("bucket does not exist")
+}	
+// LV -end
 
 func (kv *Service) LookupBucketByName(bucketName string) error {
 	kv.bucketsLock.RLock()
@@ -249,7 +401,25 @@ func (kv *Service) DeleteObjectPrefix(objectID *protos.ObjectID) ([]*protos.Obje
 	return deletedObjects, nil
 }
 
-func (kv *Service) LookupObject(objectID *protos.ObjectID) (*protos.ObjectResponse, error) {
+// LV new definitions
+var KACP = keepalive.ClientParameters{
+	Time:                10 * time.Second, // send pings every 10 seconds if there is no activity
+	Timeout:             10 * time.Second, // wait 30 second for ping ack before considering the connection dead
+	PermitWithoutStream: true,             // send pings even without active streams
+}
+
+
+func factoryNode(ip string) (*grpc.ClientConn, error) {
+	opts := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithKeepaliveParams(KACP)}
+	//conn, err := grpc.Dial(ip+config.Config.MDSPort, opts...)
+	conn, err := grpc.Dial(ip, opts...)
+	if err != nil {
+		logger.FatalLogger.Fatalln("Failed to start gRPC connection:", err)
+	}
+	return conn, err
+}
+
+func (kv *Service) LookupObjectAux(objectID *protos.ObjectID) (*protos.ObjectResponse, error) {
 	kv.bucketsLock.RLock()
 	defer kv.bucketsLock.RUnlock()
 	if kv.buckets[objectID.Bucket] == nil {
@@ -263,7 +433,48 @@ func (kv *Service) LookupObject(objectID *protos.ObjectID) (*protos.ObjectRespon
 	}, nil
 }
 
-func (kv *Service) ListObjects(objectListRequest *protos.ObjectListRequest) (*protos.ObjectListResponse, error) {
+
+func (kv *Service) LookupObject(objectID *protos.ObjectID) (*protos.ObjectResponse, error) {
+	//LV : lookup object locally and return it if found
+	logger.InfoLogger.Println("first perform local metadata object lookup", objectID)
+	result, err  := kv.LookupObjectAux(objectID) 
+	if (err == nil) {
+		logger.InfoLogger.Println("returning local metadata object lookup", result, err)
+		return result, nil 
+	}
+	
+	kv.gatewayConfigsLock.RLock()
+	defer kv.gatewayConfigsLock.RUnlock()
+		
+	//LV: iterate gateways until object is found (first one found is returned, assume namespace partitioning by owner/user)
+	logger.ErrorLogger.Println("object not found locally - iterating connections to known gateways")
+	for _, gatewayConfig := range kv.gatewayConfigs {
+		//conn, err := gtconnpool.GetMDSGatewayConnectionsStream(gatewayConfig.RemoteAddress)[gatewayConfig.RemoteAddress].clients
+		conn, err := factoryNode(gatewayConfig.RemoteAddress)
+		if conn == nil || err != nil {
+			logger.ErrorLogger.Println("Error connection to MDSGategway ", gatewayConfig.RemoteAddress)
+		}
+		logger.InfoLogger.Println("Setup connection to gateway", gatewayConfig.RemoteAddress)
+		client := protos.NewMetadataServiceClient(conn)
+		objectId := &protos.ObjectID{
+		Key:    objectID.Key,
+		Bucket: objectID.Bucket,
+		}
+	
+		result, err := client.LookupObjectAux(context.Background(), objectId)
+		if err != nil {
+			logger.ErrorLogger.Println(err)
+		} else {
+			logger.InfoLogger.Println("metadata returned from gateway", gatewayConfig, result.Result)
+			if (result.Result != nil){
+				return result, err
+			}
+		}
+	}
+	return result, err
+}	
+
+func (kv *Service) ListObjectsAux(objectListRequest *protos.ObjectListRequest) (*protos.ObjectListResponse, error) {
 	objects := &protos.ObjectListResponse{Results: []*protos.Object{}, CommonPrefixes: []string{}}
 	if objectListRequest.Prefix == nil || len(objectListRequest.Prefix.Bucket) == 0 {
 		logger.InfoLogger.Println("bucket not set")
@@ -322,3 +533,86 @@ func (kv *Service) ListObjects(objectListRequest *protos.ObjectListRequest) (*pr
 
 	return objects, nil
 }
+
+func (kv *Service) ListObjects(objectListRequest *protos.ObjectListRequest) (*protos.ObjectListResponse, error) {
+	//LV : list objects locally and save it if found
+	logger.InfoLogger.Println("first perform local object list", objectListRequest)
+	
+	result, err  := kv.ListObjectsAux(objectListRequest) 
+	
+	if (err == nil) {
+		logger.InfoLogger.Println("local metadata local object list found: ", result, err)
+		//return result, nil 
+	}
+	
+	kv.gatewayConfigsLock.RLock()
+	defer kv.gatewayConfigsLock.RUnlock()
+		
+	//LV: iterate gateways until object is found (first one found is returned, assume namespace partitioning by owner/user)
+	logger.ErrorLogger.Println("listobjects - iterating connections to known gateways")
+	for _, gatewayConfig := range kv.gatewayConfigs {
+		//conn, err := gtconnpool.GetMDSGatewayConnectionsStream(gatewayConfig.RemoteAddress)[gatewayConfig.RemoteAddress].clients
+		conn, err := factoryNode(gatewayConfig.RemoteAddress)
+		if conn == nil || err != nil {
+			logger.ErrorLogger.Println("Error connection to MDSGategway ", gatewayConfig.RemoteAddress)
+		}
+		logger.InfoLogger.Println("Setup connection to gateway", gatewayConfig.RemoteAddress)
+		client := protos.NewMetadataServiceClient(conn)
+		
+		//var objectListRequest protos.ObjectListRequest
+		
+		/*if objectListRequest.Delimiter != nil && *objectListRequest.Delimiter != 0 {
+			var delimiter = string(*objectListRequest.Delimiter)
+			objectListRequest := &protos.ObjectListRequest{
+				Prefix: objectListRequest.Prefix,
+				Delimeter: delimeter,
+			}
+		} else {
+			*/
+			objectListRequest := &protos.ObjectListRequest{
+				Prefix: objectListRequest.Prefix,
+			}
+	
+		/*}*/
+	
+		result2, err := client.ListAux(context.Background(), objectListRequest)
+		if err != nil {
+			logger.ErrorLogger.Println(err)
+		} else {
+			logger.InfoLogger.Println("listobjects - metadata returned from gateway", gatewayConfig, result2)
+			for _, result2_aux := range result2.Results {
+				result.Results = append(result.Results, result2_aux)
+			}
+		}
+	}
+	return result, err
+}	
+
+
+/*func (kv *Service) LookupObject(objectID *protos.ObjectID) (*protos.ObjectResponse, error) {
+	kv.bucketsLock.RLock()
+	defer kv.bucketsLock.RUnlock()
+	if kv.buckets[objectID.Bucket] == nil {
+		return nil, errors.New("bucket's object does not exist")
+	}
+	if _, ok := kv.buckets[objectID.Bucket].objects[objectID.Key]; !ok {
+		return nil, errors.New("object does not exist")
+	}
+	return &protos.ObjectResponse{
+		Result: kv.buckets[objectID.Bucket].objects[objectID.Key].object,
+	}, nil
+}*/
+
+
+
+func (kv *Service) ListBucketsAux() (*protos.BucketListResponse, error) {
+	kv.bucketsLock.RLock()
+	defer kv.bucketsLock.RUnlock()
+	buckets := &protos.BucketListResponse{Results: []string{}}
+	buckets.Results = append(buckets.Results, maps.Keys(kv.buckets)...)
+	return buckets, nil
+}
+
+
+// LV END
+

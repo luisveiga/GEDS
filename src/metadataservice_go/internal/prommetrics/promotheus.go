@@ -35,37 +35,37 @@ func InitMetrics(registry prometheus.Registerer) *Metrics {
 		Name:      "mds_list_objects_total",
 		Help:      "The total number of list object calls",
 	})
-	registry.MustRegister(metrics.createObjectCounter, metrics.lookupObjectCounter,
-		metrics.updateObjectCounter, metrics.deleteObjectCounter, metrics.listObjectCounter)
+	/*registry.MustRegister(metrics.createObjectCounter, metrics.lookupObjectCounter,
+		metrics.updateObjectCounter, metrics.deleteObjectCounter, metrics.listObjectCounter)*/
 	return metrics
 }
 
 func (m *Metrics) IncrementCreateObject() {
 	if config.Config.PrometheusEnabled {
-		m.createObjectCounter.Inc()
+		//m.createObjectCounter.Inc()
 	}
 }
 
 func (m *Metrics) IncrementLookupObject() {
 	if config.Config.PrometheusEnabled {
-		m.lookupObjectCounter.Inc()
+		//m.lookupObjectCounter.Inc()
 	}
 }
 
 func (m *Metrics) IncrementUpdateObject() {
 	if config.Config.PrometheusEnabled {
-		m.updateObjectCounter.Inc()
+		//m.updateObjectCounter.Inc()
 	}
 }
 
 func (m *Metrics) IncrementDeleteObject() {
 	if config.Config.PrometheusEnabled {
-		m.deleteObjectCounter.Inc()
+		//m.deleteObjectCounter.Inc()
 	}
 }
 
 func (m *Metrics) IncrementListObject() {
 	if config.Config.PrometheusEnabled {
-		m.listObjectCounter.Inc()
+		//m.listObjectCounter.Inc()
 	}
 }
