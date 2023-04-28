@@ -7,6 +7,7 @@ import (
 	"github.com/IBM/gedsmds/protos"
 	"io"
 	"strconv"
+	"time"
 )
 
 type Executor struct {
@@ -28,6 +29,7 @@ func (e *Executor) RegisterMDSGateway(remoteMDSAddress string) {
 	if conn == nil || err != nil {
 		logger.ErrorLogger.Println(err)
 	}
+	logger.ClientTraceLogger.Println("----", ";", time.Now().UnixMicro(),";MDS;MDS_GTY;", remoteMDSAddress) 
 	logger.InfoLogger.Println("Register MDS Gateway", remoteMDSAddress)
 	client := protos.NewMetadataServiceClient(conn.ClientConn)
 	gateway := &protos.GatewayConfig{
@@ -48,6 +50,7 @@ func (e *Executor) ListMDSGateways() {
 	if conn == nil || err != nil {
 		logger.ErrorLogger.Println(err)
 	}
+	logger.ClientTraceLogger.Println("----", ";", time.Now().UnixMicro(),";MDS;MDS_LST;")
 	logger.InfoLogger.Println("Listing MDS Gateways")
 		client := protos.NewMetadataServiceClient(conn.ClientConn)
 	result, err := client.ListMDSGateways(context.Background(), &protos.EmptyParams{})
@@ -74,6 +77,7 @@ func (e *Executor) RegisterObjectStore() {
 		EndpointUrl: "geds://",
 		SecretKey:   "secKey",
 	}
+	logger.ClientTraceLogger.Println("----", ";", time.Now().UnixMicro(),";GEN;REG_STORE;", oStore.Bucket, ";", oStore.AccessKey, ";", oStore.EndpointUrl)
 	result, err := client.RegisterObjectStore(context.Background(), oStore)
 	if err != nil {
 		logger.ErrorLogger.Println(err)
@@ -99,6 +103,7 @@ func (e *Executor) ListObjectStore() {
 	if conn == nil || err != nil {
 		logger.ErrorLogger.Println(err)
 	}
+	logger.ClientTraceLogger.Println("----", ";", time.Now().UnixMicro(),";GEN;LST_STORE;")
 	client := protos.NewMetadataServiceClient(conn.ClientConn)
 	result, err := client.ListObjectStores(context.Background(), &protos.EmptyParams{})
 	if err != nil {
@@ -119,6 +124,9 @@ func (e *Executor) CreateBucket() {
 	bucket := &protos.Bucket{
 		Bucket: "b1",
 	}
+	
+	logger.ClientTraceLogger.Println("----", ";", time.Now().UnixMicro(),";BKT;BKT_CRT;", bucket.Bucket)
+	
 	result, err := client.CreateBucket(context.Background(), bucket)
 	if err != nil {
 		logger.ErrorLogger.Println(err)
@@ -145,6 +153,9 @@ func (e *Executor) CreateBucket2() {
 	bucket := &protos.Bucket{
 		Bucket: "b1B",
 	}
+	
+	logger.ClientTraceLogger.Println("----", ";", time.Now().UnixMicro(),";BKT;BKT_CRT;", bucket.Bucket)
+
 	result, err := client.CreateBucket(context.Background(), bucket)
 	if err != nil {
 		logger.ErrorLogger.Println(err)
@@ -169,6 +180,9 @@ func (e *Executor) ListBuckets() {
 		logger.ErrorLogger.Println(err)
 	}
 	client := protos.NewMetadataServiceClient(conn.ClientConn)
+
+	logger.ClientTraceLogger.Println("----", ";", time.Now().UnixMicro(),";BKT;BKT_LST;")
+
 	result, err := client.ListBuckets(context.Background(), &protos.EmptyParams{})
 	if err != nil {
 		logger.ErrorLogger.Println(err)
@@ -188,6 +202,9 @@ func (e *Executor) DeleteBucket() {
 	bucket := &protos.Bucket{
 		Bucket: "b1",
 	}
+	
+	logger.ClientTraceLogger.Println("----", ";", time.Now().UnixMicro(),";BKT;BKT_DLT;", bucket.Bucket)
+	
 	result, err := client.DeleteBucket(context.Background(), bucket)
 	logger.InfoLogger.Println(result.Code)
 	if errCon := conn.Close(); errCon != nil {
@@ -204,6 +221,9 @@ func (e *Executor) LookUpBucket() {
 	bucket := &protos.Bucket{
 		Bucket: "b1",
 	}
+	
+	logger.ClientTraceLogger.Println("----", ";", time.Now().UnixMicro(),";BKT;BKT_LKP;", bucket.Bucket)
+	
 	result, err := client.LookupBucket(context.Background(), bucket)
 	logger.InfoLogger.Println(result.Code)
 	if errCon := conn.Close(); errCon != nil {
@@ -220,6 +240,9 @@ func (e *Executor) LookUpBucket2() {
 	bucket := &protos.Bucket{
 		Bucket: "b1B",
 	}
+
+	logger.ClientTraceLogger.Println("----", ";", time.Now().UnixMicro(),";BKT;BKT_LKP;", bucket.Bucket)
+
 	result, err := client.LookupBucket(context.Background(), bucket)
 	logger.InfoLogger.Println(result.Code)
 	if errCon := conn.Close(); errCon != nil {
@@ -245,6 +268,9 @@ func (e *Executor) CreateObject() {
 			SealedOffset: 1000,
 		},
 	}
+	
+	logger.ClientTraceLogger.Println("----", ";", time.Now().UnixMicro(),";OBJ;OBJ_CRT;",  object.Id.Bucket, ";", object.Id.Key ,";", object.Info.Location, ";", object.Info.Size, ";", object.Info.SealedOffset)
+
 	result, err := client.Create(context.Background(), object)
 	if err != nil {
 		logger.ErrorLogger.Println(err)
@@ -275,6 +301,9 @@ func (e *Executor) CreateObject() {
 			SealedOffset: 4000,
 		},
 	}
+	
+	logger.ClientTraceLogger.Println("----", ";", time.Now().UnixMicro(),";OBJ;OBJ_CRT;",  object.Id.Bucket, ";", object.Id.Key ,";", object.Info.Location, ";", object.Info.Size, ";", object.Info.SealedOffset)
+	
 	result, err = client.Create(context.Background(), object)
 	if err != nil {
 		logger.ErrorLogger.Println(err)
@@ -302,6 +331,9 @@ func (e *Executor) UpdateObject() {
 			SealedOffset: 3000,
 		},
 	}
+	
+	logger.ClientTraceLogger.Println("----", ";", time.Now().UnixMicro(),";OBJ;OBJ_UPD;",  object.Id.Bucket, ";", object.Id.Key ,";", object.Info.Location, ";", object.Info.Size, ";", object.Info.SealedOffset)
+	
 	result, err := client.Update(context.Background(), object)
 	if err != nil {
 		logger.ErrorLogger.Println(err)
@@ -329,6 +361,9 @@ func (e *Executor) UpdateObject2() {
 			SealedOffset: 3000,
 		},
 	}
+	
+	logger.ClientTraceLogger.Println("----", ";", time.Now().UnixMicro(),";OBJ;OBJ_UPD;",  object.Id.Bucket, ";", object.Id.Key ,";", object.Info.Location, ";", object.Info.Size, ";", object.Info.SealedOffset)
+	
 	result, err := client.Update(context.Background(), object)
 	if err != nil {
 		logger.ErrorLogger.Println(err)
@@ -356,6 +391,9 @@ func (e *Executor) UpdateObject3() {
 			SealedOffset: 3000,
 		},
 	}
+	
+	logger.ClientTraceLogger.Println("----", ";", time.Now().UnixMicro(),";OBJ;OBJ_UPD;",  object.Id.Bucket, ";", object.Id.Key ,";", object.Info.Location, ";", object.Info.Size, ";", object.Info.SealedOffset)
+	
 	result, err := client.Update(context.Background(), object)
 	if err != nil {
 		logger.ErrorLogger.Println(err)
@@ -378,6 +416,9 @@ func (e *Executor) DeleteObject() {
 		Key:    "file1",
 		Bucket: "b2",
 	}
+	
+	logger.ClientTraceLogger.Println("----", ";", time.Now().UnixMicro(),";OBJ;OBJ_DEL;",  objectId.Bucket, ";", objectId.Key)
+	
 	result, err := client.Delete(context.Background(), objectId)
 	if err != nil {
 		logger.ErrorLogger.Println(err)
@@ -398,6 +439,9 @@ func (e *Executor) DeletePrefix() {
 		Key:    "file3",
 		Bucket: "b2",
 	}
+	
+	logger.ClientTraceLogger.Println("----", ";", time.Now().UnixMicro(),";PFX;PFX_DEL;",  objectId.Bucket, ";", objectId.Key )
+	
 	result, err := client.DeletePrefix(context.Background(), objectId)
 	if err != nil {
 		logger.ErrorLogger.Println(err)
@@ -418,6 +462,9 @@ func (e *Executor) Lookup() {
 		Key:    "file1",
 		Bucket: "b2",
 	}
+	
+	logger.ClientTraceLogger.Println("----", ";", time.Now().UnixMicro(),";OBJ;OBJ_LKP;",  objectId.Bucket, ";", objectId.Key )
+	
 	result, err := client.Lookup(context.Background(), objectId)
 	if err != nil {
 		logger.ErrorLogger.Println(err)
@@ -428,6 +475,9 @@ func (e *Executor) Lookup() {
 		Key:    "file2",
 		Bucket: "b2",
 	}
+
+	logger.ClientTraceLogger.Println("----", ";", time.Now().UnixMicro(),";OBJ;OBJ_LKP;",  objectId2.Bucket, ";", objectId2.Key )
+	
 	result, err = client.Lookup(context.Background(), objectId2)
 	if err != nil {
 		logger.ErrorLogger.Println(err)
@@ -445,11 +495,16 @@ func (e *Executor) ListObjects() {
 		logger.ErrorLogger.Println(err)
 	}
 	client := protos.NewMetadataServiceClient(conn.ClientConn)
-	result, err := client.List(context.Background(), &protos.ObjectListRequest{
+	
+	objectListRequest := &protos.ObjectListRequest{
 		Prefix: &protos.ObjectID{
 			Bucket: "b2",
 		},
-	})
+	}
+	
+	logger.ClientTraceLogger.Println("----", ";", time.Now().UnixMicro(),";PFX;PFX_LKP;",  objectListRequest.Prefix.Bucket, ";", objectListRequest.Prefix.Key)
+	
+	result, err := client.List(context.Background(), objectListRequest)
 	if err != nil {
 		logger.ErrorLogger.Println(err)
 	}
